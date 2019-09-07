@@ -1,19 +1,14 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import ContentEditable from "react-contenteditable"
+import { withRouter } from 'react-router-dom';
 
-const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, handleEditSubject}) =>{
+const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, handleEditSubject, x}) =>{
  const flashcardList = cards.map(card => {
    return(
  
 
    <div className="flashcard" key={card.set_id}>
-   <Link to={{
-   pathname: '/flashcard/' + card.set_id,
-   state: { 
-    title: card.title,
-    subject: card.subject
-    }}}>
    <div>
      <label>Title: </label>
      <ContentEditable
@@ -35,12 +30,25 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
         />    
     </div> 
      
-   View FlashCard </Link>
+    <NavLink to={{
+     pathname: x + '/edit/flashcard/' + card.set_id,
+     state:{
+      title: card.title,
+      subject: card.subject
+     }}}>
+     <button>Edit Card</button>
+    </NavLink>
+
    
    <button onClick={toggleEditable}>
     {getState ? "Disable Edit" : "Edit"}
    </button>
-   <button onClick={ () => {removeCard(card.set_id)}} >Delete Flash Card</button>
+   <button onClick={ () => {
+    removeCard(card.set_id)
+    this.props.history.push(x)
+    }} >
+     Delete Flash Card
+    </button>
    </div>
    )
    })
@@ -54,4 +62,4 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
   )
 }
 
-export default Card;
+export default withRouter(Card);

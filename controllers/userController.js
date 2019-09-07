@@ -17,11 +17,11 @@ db.connect((err) =>{
 })
 */
 
-const jwt = require("jsonwebtoken");
-const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken")
+const bcrypt = require('bcrypt')
 
-const User = require("../models/User");
-process.env.SECRET_KEY = 'secret';
+const User = require("../models/User")
+process.env.SECRET_KEY = 'secret'
 
 module.exports = function(app){
 
@@ -59,31 +59,36 @@ module.exports = function(app){
     res.json({error: "User already exists"})
    }
   })
- });
+ })
 
  //Post function to login a user
- app.post('/login', (req, res) =>{
+app.post('/login', (req, res) =>{
 
   User.findOne({
-   where: {
+    where: {
     username: req.body.username
-   }
+  }
   }).then(user =>{
-   if(user){
+  if(user){
     if(bcrypt.compareSync(req.body.password, user.password)){
-     var token = jwt.sign(user.dataValues, 'secret', { expiresIn: '2h' } );
-     res.send(token);
+      var token = jwt.sign(user.dataValues, 'secret', { expiresIn: '2h' } )
+      console.log(user.dataValues)
+      res.json({
+        user_id: user.dataValues.user_id,
+        username: user.dataValues.username,
+        email: user.dataValues.email,
+        token: token
+
+    });
     }
-   }else{
-    res.json({
-     msg: 'Error! Username does not exist...'
-    })
-   }
-  }).catch(err =>{
-   res.send('error');
+    }else{
+      res.status(400).json({ error: 'User does not exist' })
+    }
+    }).catch(err =>{
+      res.status(400).json({ error: err })
   })
 
- })
+  })
 
 /*
  //Post method for registering a user

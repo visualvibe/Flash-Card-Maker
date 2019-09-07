@@ -21,13 +21,10 @@ class AddQuestion extends Component{
  //Calls addCard function in Profile.js
  handleSubmit = (e) =>{
   e.preventDefault()
-  this.props.addQuestion(this.state)
+  this.props.addQuestion(this.state, this.props.set_id)
  }
 
  render(){
-
-
-
   return(
    <div>
    <h1>Add new question</h1>

@@ -29,18 +29,18 @@ module.exports = function(app){
       if(err.code == 'ER_DUP_ENTRY' || err.errno == 1062){
        res.json({
         msg: 'Duplicate card!'
-       });
+       })
       }
        else{
         res.json({
          msg: err
-        });
+        })
        }
       }else{
        res.json(data)
       }
-  });
- });
+   })
+  })
 
  //Method to edit flashcard title
  app.post('/edittitle', (req, res) =>{
@@ -165,6 +165,18 @@ module.exports = function(app){
   });
 
  })
+
+  //Post to view get specific card info
+  app.post('/cards/info', (req, res) =>{
+   var set_id = req.body.set_id
+ 
+   let sql = "SELECT * FROM cardset WHERE cardset.set_id = ?";
+   db.query(sql, set_id, (err, data) =>{
+    if(err) throw err;
+    res.json(data[0]);
+   });
+ 
+  })
 
  //Post to view questions to specific cards
  app.post('/cards/questions', (req, res) =>{

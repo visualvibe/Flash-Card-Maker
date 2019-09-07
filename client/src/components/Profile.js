@@ -1,173 +1,70 @@
 import React, { Component } from 'react'
 import Card from './Card'
 import AddCard from './AddCard'
-import UserNavBar from './UserNavBar'
 import FlashCard from './FlashCard'
-import axios from 'axios'
-import jwt_decode from 'jwt-decode'
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {Redirect} from 'react-router'
-import {push} from 'react-router-redirect';
+import Logout from './Logout'
+import { BrowserRouter,Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getCards, toggleEdit, addCard, deleteCard, handleEditTitle, handleEditSubject } from '../actions/CardActions'
+
 
 class Profile extends Component{
-  constructor(){
-    super()
-    this.state = {
-      user_id: '',
-      first_name: '',
-      email: '',
-      cards: localStorage.getItem('cards'),
-      editable: false
-    }
+  state = {
+    isCardsVisible: false,
+    isAddVisible: false
   }
 
-  componentWillMount(){
-    localStorage.getItem('cards') && this.setState({
-      cards: JSON.parse(localStorage.getItem('cards'))
-    })
-  }
+
   componentDidMount(){
-    const token = localStorage.usertoken;
-
-    const decoded = jwt_decode(token);
-    this.setState({
-      user_id: decoded.user_id,
-      first_name: decoded.first_name,
-      email: decoded.email
-      
-    });
-    //Post method to retrieve/view cards
-    axios({
-      method: 'POST', 
-      url:'/cards', 
-      'content-type': 'application/json',
-      data: {
-        user_id: decoded.user_id
-      }
-      }).then(res =>  {
-          localStorage.setItem('cards', JSON.stringify(res.data))
-          const n = localStorage.getItem('cards')
-          const cards = JSON.parse(n)
-          this.setState({cards: cards});
-      })
-  }
-
-  componentWillUpdate(nextProps, nextState){
-    console.log(nextState.cards)
-    localStorage.setItem('cards', JSON.stringify(nextState.cards))
-
-  }
-
-  //Function that handles adding a new card
-  addCard = (card) =>{
-    axios({
-      method: 'POST', 
-      url:'/addcard', 
-      'content-type': 'application/json',
-      data: {
-        user_id: this.state.user_id,
-        title: card.title,
-        subject: card.subject
-    }
-    }).then(res =>  {
-      var newCard = {
-      set_id: res.data.insertId,
-      title: card.title,
-      subject: card.subject,
-      user_id: this.state.user_id
-      }
-      let cards = [...this.state.cards, newCard]
-      this.setState({cards: cards})
-      card.set_id = res.data.insertId
-      
-      this.props.history.push({
-        pathname: '/flashcard/' + card.set_id,
-        state: 
-        this.state
-    
-      });
-    });
-  }
-
-  //Function that handles removing a card
-  removeCard = (id) =>{
-    axios({
-      method: 'POST', 
-      url:'/removecard', 
-      'content-type': 'application/json',
-      data: {
-      set_id: id
-    }
-    }).then(res =>  {
-      let cards = this.state.cards.filter(card => {
-      return card.set_id !== id
-    })
-    this.setState({cards: cards})
-  });
+    this.props.getCards(this.props.user_id)
   }
 
   //Toggles edit button
   toggleEditable = () =>{
-    this.setState({ editable: !this.state.editable });
-  }
-
-  //Function that Edits card title
-  handleEditTitle = (e, index) =>{
-    axios({
-    method: 'POST', 
-    url:'/edittitle', 
-    'content-type': 'application/json',
-    data: {
-      title: e.target.value,
-      set_id: index
-    }
-    }).then(res =>  {
-      var card = [...this.state.cards]
-      var i = card.findIndex(obj => obj.set_id === index)
-      card[i].title = e.target.value
-      this.setState({card})
-    });
-  }
-
-  //Function that edits subject title
-  handleEditSubject = (e, index) =>{
-    axios({
-    method: 'POST', 
-    url:'/editSubject', 
-    'content-type': 'application/json',
-    data: {
-      subject: e.target.value,
-      set_id: index
-    }
-    }).then(res =>  {
-      var card = [...this.state.cards]
-      var i = card.findIndex(obj => obj.set_id === index)
-      card[i].subject = e.target.value
-      this.setState({card})
-    });
+    this.props.toggleEdit()
   }
 
   render(){
     return(
-      <BrowserRouter>
         <div>
-          <UserNavBar />
-          <h2>Hi {this.state.first_name}</h2>
+          <h2>Hi {this.props.username}</h2>
+          
+          <div className="user-buttons">
+            <button onClick={() => this.setState({ isCardsVisible: true, isAddVisible: false })}>View Cards</button>
+            <button onClick={() => this.setState({ isAddVisible: true, isCardsVisible: false })}>Add New Card</button>
+            <button><Logout /></button>
+          </div>
+          {this.state.isCardsVisible ? <Card 
+            cards={this.props.cards} 
+            removeCard={this.props.deleteCard}
+            getState={this.props.editable}
+            toggleEditable={this.toggleEditable}
+            handleEditTitle={this.props.handleEditTitle}
+            handleEditSubject={this.props.handleEditSubject}
+            x={this.props.match.url} />: null }
+
+          {this.state.isAddVisible ? 
+          <AddCard addCard={this.props.addCard} thisUrl={this.props.match.url}/> : null }
+          
           <Switch>
-            <Route path="/addcard" render={props => <AddCard addCard={this.addCard}/>} />
-            <Route path="/viewcards" render={props =>
-            <Card cards={this.state.cards} 
-              removeCard={this.removeCard}
-              getState={this.state.editable}
-              toggleEditable={this.toggleEditable}
-              handleEditTitle={this.handleEditTitle}
-              handleEditSubject={this.handleEditSubject} />} />
-              <Route path="/flashcard/:card_id" component={FlashCard}/>
+            <Route path={`${this.props.match.path}/edit/flashcard/:card_id`} component={FlashCard}/>
           </Switch>
-        </div>
-      </BrowserRouter>
+        </div> 
     )
   }
 }
 
-export default Profile;
+const mapStateToProps = state =>({
+  cards: state.cards.cards,
+  editable: state.cards.editable,
+  isAuthenticated: state.auth.isAuthenticated,
+  user_id: state.auth.user_id,
+  username: state.auth.username
+})
+
+export default connect(mapStateToProps, {getCards, 
+  toggleEdit, 
+  addCard, 
+  deleteCard,
+  handleEditTitle,
+  handleEditSubject })(Profile);

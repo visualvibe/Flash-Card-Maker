@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { withRouter } from 'react-router-dom';
 
 class AddCard extends Component{
  constructor(props){
@@ -18,30 +19,32 @@ class AddCard extends Component{
   })
  }
 
- //Calls addCard function in Profile.js
- handleSubmit = (e) =>{
-  e.preventDefault()
-  this.props.addCard(this.state)
- }
+  //Calls addCard function in Profile.js
+  handleSubmit =  (e) =>{
+    e.preventDefault()
+    this.props.addCard(this.state).then(res =>{
+      if(res){
+        console.log(res.data.insertId)
+        this.props.history.replace(this.props.thisUrl + '/edit/flashcard/' + res.data.insertId)
+      }
+    })
+  }
 
- render(){
+  render(){
+    return(
+    <div>
+    <h1>Add new card</h1>
+    <form onSubmit={this.handleSubmit.bind(this)} method='POST'>
+        <label>Title</label>
+        <input type="text" id="title" onChange={this.handleChange}/>
+        <label>Subject</label>
+        <input type="text" id="subject" onChange={this.handleChange}/>
 
-
-
-  return(
-   <div>
-   <h1>Add new card</h1>
-   <form onSubmit={this.handleSubmit.bind(this)} method='POST'>
-      <label>Title</label>
-      <input type="text" id="title" onChange={this.handleChange}/>
-      <label>Subject</label>
-      <input type="text" id="subject" onChange={this.handleChange}/>
-
-      <button type="submit">Add</button>
-     </form>
-   </div>
-  )
- }
+        <button type="submit">Add</button>
+      </form>
+    </div>
+    )
+  }
 }
 
-export default AddCard;
+export default withRouter(AddCard);

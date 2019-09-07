@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { login } from './UserFunctions';
+import { login } from '../actions/UserActions';
+import { connect } from 'react-redux'
 
 class Login extends Component {
   constructor() {
@@ -7,29 +8,36 @@ class Login extends Component {
     this.state = {
       username : '',
       password: '',
-      errors: {}
+      msg: null
     }
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleSubmit(e){
+  handleSubmit = async(e) =>{
     e.preventDefault();
-
+    const { username, password} = this.state
     const user = {
-      username: this.state.username,
-      password: this.state.password
+      username,
+      password
     }
+    await this.props.login(user)
+    this.props.history.push('/' + username)
 
+    /*
+ 
     login(user).then(res =>{
       if(res){
         this.props.history.push('/profile');
       }
     })
+    */
   }
 
  render(){
@@ -43,9 +51,15 @@ class Login extends Component {
       <input type="password" id="password" name="password" value={this.state.password}  onChange={this.onChange}/>
       <button type="submit">Login</button>
      </form>
+ 
    </div>
   )
  }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
+})
+
+export default connect(mapStateToProps, {login})(Login)

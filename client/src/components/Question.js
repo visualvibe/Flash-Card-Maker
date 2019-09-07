@@ -31,7 +31,7 @@ const Question = ({questions, removeQuestion, handleEditAnswer, handleEditQuesti
          {getState ? "Disable Edit" : "Edit"}
        </button>
      </div> 
-    <button onClick={ () => {removeQuestion(question.q_id)}}>Delete</button>
+    <button onClick={ (e) => {removeQuestion(question.q_id)}}>Delete</button>
    </div>
   )
  })

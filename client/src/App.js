@@ -5,24 +5,30 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
-import FlashCard from './components/FlashCard';
+import { Provider } from 'react-redux'
+import store from './store'
 
 class App extends Component {
-  
+ 
+  componentDidMount(){
+  }
+
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <NavBar />
-          <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/login" component={Login}/>
-            <Route path="/register" component={Register}/>
-            <Route path="/profile" component={Profile}/>
-            <Route path="/flashcard/:card_id" component={FlashCard}/>
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="App">
+            <NavBar />
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/login" component={Login}/>
+              <Route path="/register" component={Register}/>
+              <Route path="/:username" component={Profile}/>
+
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
