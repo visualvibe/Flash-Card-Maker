@@ -32,16 +32,20 @@ class AddCard extends Component{
 
   render(){
     return(
-    <div>
-    <h1>Add new card</h1>
-    <form onSubmit={this.handleSubmit.bind(this)} method='POST'>
-        <label>Title</label>
-        <input type="text" id="title" onChange={this.handleChange}/>
-        <label>Subject</label>
-        <input type="text" id="subject" onChange={this.handleChange}/>
+    <div className="inside-wrapper">
+      <div className="add-container">
+      <div className="container-header">
+        <h1>Add new card</h1>
+      </div>
+      <form onSubmit={this.handleSubmit.bind(this)} method='POST'>
+          <label>Title</label>
+          <input type="text" id="title" onChange={this.handleChange}/>
+          <label>Subject</label>
+          <input type="text" id="subject" onChange={this.handleChange}/>
 
-        <button type="submit">Add</button>
-      </form>
+          <button type="submit">Add</button>
+        </form>
+      </div>
     </div>
     )
   }

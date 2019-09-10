@@ -26,7 +26,7 @@ process.env.SECRET_KEY = 'secret'
 module.exports = function(app){
 
  //Post function to register user
- app.post('/register', (req,res) =>{
+ app.post('/api/register', (req,res) =>{
   
   //Stores request body into userData
   const userData = {
@@ -62,8 +62,7 @@ module.exports = function(app){
  })
 
  //Post function to login a user
-app.post('/login', (req, res) =>{
-
+app.post('/api/login', (req, res) =>{
   User.findOne({
     where: {
     username: req.body.username

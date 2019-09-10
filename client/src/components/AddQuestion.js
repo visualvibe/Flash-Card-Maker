@@ -26,16 +26,17 @@ class AddQuestion extends Component{
 
  render(){
   return(
-   <div>
+   <div className="addquestion-container">
    <h1>Add new question</h1>
-   <form onSubmit={this.handleSubmit.bind(this)} method='POST'>
-      <label>Question</label>
-      <textarea type="text" id="question" onChange={this.handleChange}/>
-      <label>Answer</label>
-      <textarea type="text" id="answer" onChange={this.handleChange}/>
-
+    <form className="addquestion-form" onSubmit={this.handleSubmit.bind(this)} method='POST'>
+      <div className="addquestion-form-container">
+        <textarea placeholder="Enter question..." type="text" id="question" onChange={this.handleChange}/>
+      </div>
+      <div>
+        <textarea placeholder="Enter answer..."type="text" id="answer" onChange={this.handleChange}/>
+      </div>
       <button type="submit">Add</button>
-     </form>
+    </form>
    </div>
   )
  }

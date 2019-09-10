@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { login } from '../actions/UserActions';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import compose from 'recompose/compose'
+import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
   constructor() {
@@ -28,8 +31,7 @@ class Login extends Component {
       password
     }
     await this.props.login(user)
-    this.props.history.push('/' + username)
-
+    this.props.history.replace('/flashcard/' + username)
     /*
  
     login(user).then(res =>{
@@ -40,26 +42,29 @@ class Login extends Component {
     */
   }
 
- render(){
-  return(
-   <div className="login-container">
-    <span>Login page</span>
-    <form onSubmit={this.handleSubmit}>
-      <label>Username</label>
-      <input type="text" id="username" name="username" value={this.state.username}  onChange={this.onChange}/>
-      <label>Password</label>
-      <input type="password" id="password" name="password" value={this.state.password}  onChange={this.onChange}/>
-      <button type="submit">Login</button>
-     </form>
- 
-   </div>
-  )
- }
+  render(){
+    console.log(this.props)
+    return(
+      <div className="login-container">
+        <span>Login page</span>
+        <form onSubmit={this.handleSubmit}>
+          <label>Username</label>
+          <input type="text" id="username" name="username" value={this.state.username}  onChange={this.onChange}/>
+          <label>Password</label>
+          <input type="password" id="password" name="password" value={this.state.password}  onChange={this.onChange}/>
+        <button type="submit">Login</button>
+        </form>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   error: state.error
 })
-
-export default connect(mapStateToProps, {login})(Login)
+const enhance = compose(
+  withRouter,
+  connect(mapStateToProps, {login})
+)
+export default enhance(Login)

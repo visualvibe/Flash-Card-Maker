@@ -1,15 +1,23 @@
 import React from 'react';
 import { NavLink} from 'react-router-dom';
+import Logout from './Logout'
 
-const NavBar = () =>{
+const UserNavBar = (x) =>{
   return(
-   <nav className="navigation">
-    <ul>
-     <li><NavLink to="/addcard">Add New Card</NavLink></li>
-     <li><NavLink to="/viewcards">View/Edit Card</NavLink></li>
-    </ul>
-   </nav>
+  <div className="user-navbar">
+    <NavLink className="left-link" to={{
+      pathname:   x.x + '/add/flashcard/'
+    }}>
+      Add New Card
+    </NavLink>
+    <NavLink className="left-link" to={{
+      pathname:  x.x + '/view/flashcards/'
+    }}>
+      Edit/View Cards
+    </NavLink>
+    <Logout />
+  </div>
   )
 }
 
-export default NavBar;
+export default UserNavBar;

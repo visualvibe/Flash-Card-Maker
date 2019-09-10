@@ -14,7 +14,7 @@ const db = mysql.createPool({
 //Connects to Mysql
 
 module.exports = function(app){
- app.post('/addcard', (req, res) =>{
+ app.post('/api/addcard', (req, res) =>{
   var newCard = [
    [req.body.title,
    req.body.subject,
@@ -43,7 +43,7 @@ module.exports = function(app){
   })
 
  //Method to edit flashcard title
- app.post('/edittitle', (req, res) =>{
+ app.post('/api/edittitle', (req, res) =>{
   var newTitle = [req.body.title, req.body.set_id]
   
   //Query to delete card
@@ -57,7 +57,7 @@ module.exports = function(app){
  });
 
  //Method to edit flashcard subject
- app.post('/editsubject', (req, res) =>{
+ app.post('/api/editsubject', (req, res) =>{
   var newSubject = [req.body.subject, req.body.set_id]
   
   //Query to delete card
@@ -70,7 +70,7 @@ module.exports = function(app){
   });
  });
  //Remove card method
- app.post('/removecard', (req, res) =>{
+ app.post('/api/removecard', (req, res) =>{
   var set_id = req.body.set_id
   
   //Query to delete card
@@ -84,7 +84,7 @@ module.exports = function(app){
  });
 
  //Add question to specific card
- app.post('/addquestion', (req, res) =>{
+ app.post('/api/addquestion', (req, res) =>{
   var newQuestion = [
    [req.body.q_value,
    req.body.q_answer,
@@ -113,7 +113,7 @@ module.exports = function(app){
  });
 
   //Edit answer method
-  app.post('/editanswer', (req, res) =>{
+  app.post('/api/editanswer', (req, res) =>{
    var newAnswer = [req.body.q_answer, req.body.q_id]
    
    //Query to delete card
@@ -127,7 +127,7 @@ module.exports = function(app){
   });
 
    //Edit question method
-   app.post('/editquestion', (req, res) =>{
+   app.post('/api/editquestion', (req, res) =>{
     var newQuestion = [req.body.q_value, req.body.q_id]
     
     //Query to delete card
@@ -141,7 +141,7 @@ module.exports = function(app){
    });
 
  //Remove question method
- app.post('/removequestion', (req, res) =>{
+ app.post('/api/removequestion', (req, res) =>{
   var q_id = req.body.q_id
   
   //Query to delete card
@@ -155,8 +155,9 @@ module.exports = function(app){
  });
 
  //Post to view all card sets belonging to specific user
- app.post('/cards', (req, res) =>{
-  var user_id = req.body.user_id
+ app.post('/api/cards', (req, res) =>{
+
+   var user_id = req.body.user_id
 
   let sql = "SELECT * FROM cardset WHERE cardset.user_id = ?";
   db.query(sql, user_id, (err, data) =>{
@@ -167,7 +168,7 @@ module.exports = function(app){
  })
 
   //Post to view get specific card info
-  app.post('/cards/info', (req, res) =>{
+  app.post('/api/cards/info', (req, res) =>{
    var set_id = req.body.set_id
  
    let sql = "SELECT * FROM cardset WHERE cardset.set_id = ?";
@@ -179,7 +180,7 @@ module.exports = function(app){
   })
 
  //Post to view questions to specific cards
- app.post('/cards/questions', (req, res) =>{
+ app.post('/api/cards/questions', (req, res) =>{
   var set_id = [req.body.set_id, req.body.set_id]
   
   let sql = "SELECT * FROM question INNER JOIN cardset ON cardset.set_id = ? WHERE question.set_id = ? ";

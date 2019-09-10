@@ -12,7 +12,7 @@ class Register extends Component{
   const password = document.getElementById('password').value;
    axios({
      method: 'POST', 
-     url:'/register', 
+     url:'/api/register', 
      'content-type': 'application/json',
      data: {
          username: username,   
@@ -30,7 +30,7 @@ class Register extends Component{
    });
  }
  redirectLogin() {
-  this.props.history.push("/login");
+  this.props.history.push("/flashcard/login");
 }
 
   render(){

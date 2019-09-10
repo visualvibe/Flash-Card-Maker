@@ -18,13 +18,16 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div className="App">
-            <NavBar />
+            <div className="header">
+              <div className="header-text">
+                <span style={{fontWeight: 'lighter'}}>Flashcard <span style={{fontWeight: 'bolder'}}>Builder</span></span>
+              </div>
+              <NavBar />
+            </div>
             <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route exact path="/login" component={Login}/>
-              <Route path="/register" component={Register}/>
-              <Route path="/:username" component={Profile}/>
-
+              <Route exact path="/flashcard/" component={Home}/>
+              <Route path="/flashcard/register" component={Register}/>
+              <Route path="/flashcard/:username" component={Profile}/>
             </Switch>
           </div>
         </BrowserRouter>

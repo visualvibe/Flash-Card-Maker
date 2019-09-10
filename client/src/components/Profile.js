@@ -3,10 +3,11 @@ import Card from './Card'
 import AddCard from './AddCard'
 import FlashCard from './FlashCard'
 import Logout from './Logout'
-import { BrowserRouter,Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCards, toggleEdit, addCard, deleteCard, handleEditTitle, handleEditSubject } from '../actions/CardActions'
-
+import { NavLink} from 'react-router-dom';
+import UserNavBar from './UserNavBar';
 
 class Profile extends Component{
   state = {
@@ -15,41 +16,58 @@ class Profile extends Component{
   }
 
 
-  componentDidMount(){
-    this.props.getCards(this.props.user_id)
+  componentWillMount(){
+    //Checks if user is logged in/authenticated
+    if(this.props.isAuthenticated === true){
+      this.props.getCards(this.props.user_id)
+    }
   }
 
   //Toggles edit button
   toggleEditable = () =>{
     this.props.toggleEdit()
+    var editable = document.getElementsByClassName('editable')
+    editable.addClass('x')
   }
 
   render(){
     return(
-        <div>
-          <h2>Hi {this.props.username}</h2>
-          
-          <div className="user-buttons">
-            <button onClick={() => this.setState({ isCardsVisible: true, isAddVisible: false })}>View Cards</button>
-            <button onClick={() => this.setState({ isAddVisible: true, isCardsVisible: false })}>Add New Card</button>
-            <button><Logout /></button>
+      <div className="wrapper"> 
+        <div className="container profile-container">
+          <div className="profile-left-container">
+              <div className="profile-left-container-header">
+                <h1>Welcome {this.props.username}</h1>
+              </div>
+              <UserNavBar x={this.props.match.url}/>
           </div>
-          {this.state.isCardsVisible ? <Card 
-            cards={this.props.cards} 
-            removeCard={this.props.deleteCard}
-            getState={this.props.editable}
-            toggleEditable={this.toggleEditable}
-            handleEditTitle={this.props.handleEditTitle}
-            handleEditSubject={this.props.handleEditSubject}
-            x={this.props.match.url} />: null }
-
-          {this.state.isAddVisible ? 
-          <AddCard addCard={this.props.addCard} thisUrl={this.props.match.url}/> : null }
           
-          <Switch>
-            <Route path={`${this.props.match.path}/edit/flashcard/:card_id`} component={FlashCard}/>
-          </Switch>
+          <div className="container profile-right-container">
+            
+              <Switch>
+                <Route 
+                  path={`${this.props.match.path}/edit/flashcard/:card_id`} 
+                  component={FlashCard} />
+                <Route 
+                  path={`${this.props.match.path}/add/flashcard/`} 
+                  render={(props) => <AddCard {...props} 
+                    addCard={this.props.addCard} 
+                    thisUrl={this.props.match.url} /> } />
+                <Route 
+                  path={`${this.props.match.path}/view/flashcards/`} 
+                  render={(props) => <Card {...props} 
+                  cards={this.props.cards} 
+                  removeCard={this.props.deleteCard}
+                  getState={this.props.editable}
+                  toggleEditable={this.toggleEditable}
+                  handleEditTitle={this.props.handleEditTitle}
+                  handleEditSubject={this.props.handleEditSubject}
+                  x={this.props.match.url}
+                  history={this.props.history} /> } />
+              </Switch>
+            
+          </div>
         </div> 
+      </div>
     )
   }
 }
