@@ -32,10 +32,10 @@ class AddQuestion extends Component{
       <div className="addquestion-form-container">
         <textarea placeholder="Enter question..." type="text" id="question" onChange={this.handleChange}/>
       </div>
-      <div>
+      <div className="addanswer-form-container">
         <textarea placeholder="Enter answer..."type="text" id="answer" onChange={this.handleChange}/>
       </div>
-      <button type="submit">Add</button>
+      <button id="add-button" type="submit">Add</button>
     </form>
    </div>
   )

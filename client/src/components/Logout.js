@@ -12,7 +12,7 @@ export class Logout extends Component {
   render() {
     return (
       <Fragment>
-        <NavLink className="left-link"style={{display:'inline'}} style={{fontSize: '1rem', color: 'grey', textAlign: 'end'}}onClick={this.props.logout} href='/flashcard'>
+        <NavLink id="logout-button" className="left-link" onClick={this.props.logout} href='/flashcard'>
           Logout
         </NavLink>
       </Fragment>

@@ -73,19 +73,20 @@ export const deleteCard = (id, url, history) => (dispatch, getState) =>{
 
 //Handles title edit of card
 export const handleEditTitle = (e, index) => (dispatch, getState)=>{
- axios({
+  const title = e.target.textContent
+  axios({
   method: 'POST', 
   url:'/api/edittitle', 
   'content-type': 'application/json',
   data: {
-    title: e.target.value,
+    title: e.target.textContent,
     set_id: index
    }
  })
  .then(res => {
   var card = [...getState().cards.cards]
   var i = card.findIndex(obj => obj.set_id === index)
-  card[i].title = e.target.value
+  card[i].title = title
   dispatch({
    type: HANDLE_EDIT_TITLE,
    payload: card
@@ -96,23 +97,24 @@ export const handleEditTitle = (e, index) => (dispatch, getState)=>{
 
 //Handles edits subject of card 
 export const handleEditSubject = (e, index) => (dispatch, getState)=>{
- axios({
-  method: 'POST', 
-  url:'/api/editsubject', 
-  'content-type': 'application/json',
-  data: {
-    subject: e.target.value,
-    set_id: index
-   }
- })
- .then(res => {
-  var card = [...getState().cards.cards]
-  var i = card.findIndex(obj => obj.set_id === index)
-  card[i].subject = e.target.value
-  dispatch({
-   type: HANDLE_EDIT_SUBJECT,
-   payload: card
+  const subject = e.target.textContent
+  axios({
+    method: 'POST', 
+    url:'/api/editsubject', 
+    'content-type': 'application/json',
+    data: {
+      subject: subject,
+      set_id: index
+    }
   })
+  .then(res => {
+    var card = [...getState().cards.cards]
+    var i = card.findIndex(obj => obj.set_id === index)
+    card[i].subject = subject
+    dispatch({
+    type: HANDLE_EDIT_SUBJECT,
+    payload: card
+    })
   })
 }
 

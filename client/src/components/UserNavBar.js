@@ -5,12 +5,12 @@ import Logout from './Logout'
 const UserNavBar = (x) =>{
   return(
   <div className="user-navbar">
-    <NavLink className="left-link" to={{
+    <NavLink id="addcard-button" className="left-link" to={{
       pathname:   x.x + '/add/flashcard/'
     }}>
       Add New Card
     </NavLink>
-    <NavLink className="left-link" to={{
+    <NavLink id="editcard-button" className="left-link" to={{
       pathname:  x.x + '/view/flashcards/'
     }}>
       Edit/View Cards

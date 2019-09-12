@@ -66,66 +66,70 @@ export const addQuestion = (question, set_id) => (dispatch, getState) =>{
 
 //Function that handles removing a question from a card
 export const removeQuestion = (id) => (dispatch, getState) =>{
- axios({
-  method: 'POST', 
-  url:'/api/removequestion', 
-  'content-type': 'application/json',
-  data: {
-   q_id: id
-  }
- }).then(res =>{
-  dispatch({
-   type: DELETE_QUESTION,
-   payload: id
+  axios({
+    method: 'POST', 
+    url:'/api/removequestion', 
+    'content-type': 'application/json',
+    data: {
+    q_id: id
+    }
   })
- })
+  .then(res =>{
+    dispatch({
+      type: DELETE_QUESTION,
+      payload: id
+    })
+  })
 }
 
 //Handles editing of the question
 export const handleEditQuestion = (e, index) => (dispatch, getState)=>{
- axios({
-  method: 'POST', 
-  url:'/api/editquestion', 
-  'content-type': 'application/json',
-  data: {
-    q_value: e.target.value,
-    q_id: index
-   }
- })
- .then(res => {
-  var question = [...getState().questions.questions]
-  var i = question.findIndex(obj => obj.q_id === index)
-  question[i].q_value = e.target.value
-  dispatch({
-   type: EDIT_QUESTION,
-   payload: question
+  const question = e.target.textContent
+  axios({
+    method: 'POST', 
+    url:'/api/editquestion', 
+    'content-type': 'application/json',
+    data: {
+      q_value: question,
+      q_id: index
+    }
   })
+  .then(res => {
+    var question = [...getState().questions.questions]
+    var i = question.findIndex(obj => obj.q_id === index)
+    question[i].q_value = question
+    dispatch({
+    type: EDIT_QUESTION,
+    payload: question
+    })
   })
 }
 
 //Handles editing of the question
 export const handleEditAnswer = (e, index) => (dispatch, getState)=>{
- axios({
-  method: 'POST', 
-  url:'/api/editanswer', 
-  'content-type': 'application/json',
-  data: {
-    q_answer: e.target.value,
-    q_id: index
-   }
- })
- .then(res => {
-  var question = [...getState().questions.questions]
-  var i = question.findIndex(obj => obj.q_id === index)
-  question[i].q_answer = e.target.value
-  dispatch({
-   type: EDIT_ANSWER,
-   payload: question
+  const answer = e.target.textContent
+
+  axios({
+    method: 'POST', 
+    url:'/api/editanswer', 
+    'content-type': 'application/json',
+    data: {
+      q_answer: answer,
+      q_id: index
+    }
   })
+  .then(res => {
+    var question = [...getState().questions.questions]
+    var i = question.findIndex(obj => obj.q_id === index)
+    question[i].q_answer = answer
+    dispatch({
+    type: EDIT_ANSWER,
+    payload: question
+    })
   })
 }
 
 //Toggles edit button
 export const toggleEdit = () => (dispatch, getState) =>{
- dispatch({type: TOGGLE_EDIT})
+  dispatch({type: TOGGLE_EDIT})
 }

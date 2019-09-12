@@ -3,7 +3,6 @@ import { login } from '../actions/UserActions';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import compose from 'recompose/compose'
-import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
   constructor() {
@@ -43,16 +42,19 @@ class Login extends Component {
   }
 
   render(){
-    console.log(this.props)
     return(
       <div className="login-container">
-        <span>Login page</span>
-        <form onSubmit={this.handleSubmit}>
-          <label>Username</label>
-          <input type="text" id="username" name="username" value={this.state.username}  onChange={this.onChange}/>
-          <label>Password</label>
-          <input type="password" id="password" name="password" value={this.state.password}  onChange={this.onChange}/>
-        <button type="submit">Login</button>
+        <form className="login-form" onSubmit={this.handleSubmit}>
+          <div className="container-header login">
+            <h1>User Login</h1>
+          </div>
+          <div className="login-form-bottom">
+            <input placeholder="Username" type="text" id="username" name="username" value={this.state.username}  onChange={this.onChange}/>
+            <input placeholder="Password" type="password" id="password" name="password" value={this.state.password}  onChange={this.onChange}/>
+        </div>
+        <div className="login-form-bottom2">
+          <button type="submit">Login</button>
+        </div>
         </form>
       </div>
     )

@@ -14,7 +14,7 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
         tagName="pre"
         html={card.title}
         disabled={!getState}
-        onChange={ (e) => {handleEditTitle(e, card.set_id)} } />    
+        onBlur={ (e) => {handleEditTitle(e, card.set_id)} } />    
     </div> 
     <div className="flashcard-subject">
       <label>Subject </label>
@@ -23,7 +23,7 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
         tagName="pre"
         disabled={!getState}
         html={card.subject}
-        onChange={ (e) => {handleEditSubject(e, card.set_id)} } />    
+        onBlur={ (e) => {handleEditSubject(e, card.set_id)} } />    
     </div> 
     <div className="flashcard-buttons">
       <NavLink to={{
@@ -36,7 +36,7 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
       </NavLink>
 
     
-      <button onClick={toggleEditable}>
+      <button type="submit" onClick={toggleEditable}>
         {getState ? "Disable Edit" : "Edit"}
       </button>
         <button onClick={ () => {

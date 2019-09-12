@@ -36,17 +36,20 @@ class Register extends Component{
   render(){
    return(
     <div className="register-container">
-     <span>Register Page</span>
-     <form onSubmit={this.handleSubmit.bind(this)} method='POST'>
-      <label>Username</label>
-      <input type="text" id="username"/>
-      <label>First Name</label>
-      <input type="text" id="firstname"/>
-      <label>Email</label>
-      <input type="text" id="email"/>
-      <label>Password</label>
-      <input type="text" id="password"/>
-      <button type="submit">Register</button>
+  
+     <form className="login-form" onSubmit={this.handleSubmit.bind(this)} method='POST'>
+      <div className="container-header login" >
+        <h1>User Registration </h1>
+      </div>
+      <div className="login-form-bottom">
+        <input placeholder="Username" type="text" id="username"/>
+        <input placeholder="First Name" type="text" id="firstname"/>
+        <input placeholder="Email" type="email" id="email"/>
+        <input placeholder="Password" type="password" id="password"/>
+      </div>    
+      <div className="login-form-bottom2">
+        <button type="submit">Register</button>
+      </div>
      </form>
     </div>
    )

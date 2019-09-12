@@ -2,32 +2,30 @@ import React, { Component } from 'react'
 import Card from './Card'
 import AddCard from './AddCard'
 import FlashCard from './FlashCard'
-import Logout from './Logout'
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCards, toggleEdit, addCard, deleteCard, handleEditTitle, handleEditSubject } from '../actions/CardActions'
-import { NavLink} from 'react-router-dom';
 import UserNavBar from './UserNavBar';
 
 class Profile extends Component{
-  state = {
-    isCardsVisible: false,
-    isAddVisible: false
-  }
-
 
   componentWillMount(){
     //Checks if user is logged in/authenticated
+    if(this.props.isAuthenticated === undefined) {
+      this.props.history.replace('/flashcard')
+    }
+  }
+
+  componentDidMount(){
     if(this.props.isAuthenticated === true){
       this.props.getCards(this.props.user_id)
-    }
+    } 
   }
 
   //Toggles edit button
   toggleEditable = () =>{
     this.props.toggleEdit()
-    var editable = document.getElementsByClassName('editable')
-    editable.addClass('x')
+    console.log(this.state)
   }
 
   render(){
@@ -36,7 +34,7 @@ class Profile extends Component{
         <div className="container profile-container">
           <div className="profile-left-container">
               <div className="profile-left-container-header">
-                <h1>Welcome {this.props.username}</h1>
+                <h1 id="user-button">{this.props.username}</h1>
               </div>
               <UserNavBar x={this.props.match.url}/>
           </div>
