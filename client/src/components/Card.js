@@ -27,11 +27,8 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
     </div> 
     <div className="flashcard-buttons">
       <NavLink to={{
-      pathname: x + '/edit/flashcard/' + card.set_id,
-      state:{
-        title: card.title,
-        subject: card.subject
-      }}}>
+        pathname: x + '/edit/flashcard/' + card.set_id,
+      }}>
       <button>View/Edit Card</button>
       </NavLink>
 
@@ -53,7 +50,7 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
   return(
    <div className="container edit-card">
     <div className="container-header">
-      <h1>Your Flashcards</h1>
+      <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Edit</span>Your Flashcards <span style={{ color: '#9c9996', fontSize: '1rem' }}> Total</span> {flashcardList.length} cards</h1>
     </div>
     <div className="flashcard-container">
       {flashcardList}

@@ -33,7 +33,6 @@ class FlashCard extends Component{
           toggleEditable={this.toggleEditable}
           test={this.test} />
           <AddQuestion addQuestion={this.props.addQuestion} set_id={this.props.set_id}/>
-
         </div>
       </div>
     )

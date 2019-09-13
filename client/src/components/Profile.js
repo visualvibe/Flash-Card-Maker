@@ -2,22 +2,31 @@ import React, { Component } from 'react'
 import Card from './Card'
 import AddCard from './AddCard'
 import FlashCard from './FlashCard'
+import ViewQuizCards from './quiz/ViewQuizCards'
+import QuizCard from './quiz/QuizCard'
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCards, toggleEdit, addCard, deleteCard, handleEditTitle, handleEditSubject } from '../actions/CardActions'
 import UserNavBar from './UserNavBar';
 
 class Profile extends Component{
+  constructor(){
+    super()
+      this.state = {
 
+      }
+  }
+
+  /*
   componentWillMount(){
-    //Checks if user is logged in/authenticated
     if(this.props.isAuthenticated === undefined) {
       this.props.history.replace('/flashcard')
     }
   }
+  */
 
-  componentDidMount(){
-    if(this.props.isAuthenticated === true){
+  componentWillMount(){
+    if(this.props.isAuthenticated == true){
       this.props.getCards(this.props.user_id)
     } 
   }
@@ -51,7 +60,7 @@ class Profile extends Component{
                     addCard={this.props.addCard} 
                     thisUrl={this.props.match.url} /> } />
                 <Route 
-                  path={`${this.props.match.path}/view/flashcards/`} 
+                  path={`${this.props.match.path}/edit/flashcards/`} 
                   render={(props) => <Card {...props} 
                   cards={this.props.cards} 
                   removeCard={this.props.deleteCard}
@@ -61,6 +70,15 @@ class Profile extends Component{
                   handleEditSubject={this.props.handleEditSubject}
                   x={this.props.match.url}
                   history={this.props.history} /> } />
+                <Route 
+                  path={`${this.props.match.path}/study/flashcards/`} 
+                  render={(props) => <ViewQuizCards {...props} 
+                  cards={this.props.cards} 
+                  x={this.props.match.url}
+                  history={this.props.history} /> } />
+                  <Route 
+                  path={`${this.props.match.path}/study/flashcard/:card_id/`} 
+                  component={QuizCard} /> } />
               </Switch>
             
           </div>
@@ -75,7 +93,9 @@ const mapStateToProps = state =>({
   editable: state.cards.editable,
   isAuthenticated: state.auth.isAuthenticated,
   user_id: state.auth.user_id,
-  username: state.auth.username
+  username: state.auth.username,
+  isLoading: state.auth.isLoading,
+  token: state.auth.token
 })
 
 export default connect(mapStateToProps, {getCards, 

@@ -8,12 +8,17 @@ const UserNavBar = (x) =>{
     <NavLink id="addcard-button" className="left-link" to={{
       pathname:   x.x + '/add/flashcard/'
     }}>
-      Add New Card
+      Add Card Set
     </NavLink>
     <NavLink id="editcard-button" className="left-link" to={{
-      pathname:  x.x + '/view/flashcards/'
+      pathname:  x.x + '/edit/flashcards/'
     }}>
-      Edit/View Cards
+      Edit/View Card Sets
+    </NavLink>
+    <NavLink id="quizcard-button" className="left-link" to={{
+      pathname:  x.x + '/study/flashcards/'
+    }}>
+      Study
     </NavLink>
     <Logout />
   </div>

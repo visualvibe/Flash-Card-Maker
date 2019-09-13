@@ -31,7 +31,6 @@ const Question = ({questions, removeQuestion, handleEditAnswer, handleEditQuesti
           </button>
           <button onClick={ (e) => {removeQuestion(question.q_id)}}>Delete</button>
         </div>  
-        {i}
       </div>
     )
   })

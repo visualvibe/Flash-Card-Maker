@@ -77,7 +77,6 @@ app.post('/api/login', (req, res) =>{
         username: user.dataValues.username,
         email: user.dataValues.email,
         token: token
-
     });
     }
     }else{

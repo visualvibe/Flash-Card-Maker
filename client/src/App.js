@@ -22,10 +22,18 @@ class App extends Component {
 
   componentWillMount(){
     //Checks if user is logged in/authenticated
-    if(this.props.isAuthenticated !== undefined){
+    if(this.props.isAuthenticated === true){
       this.props.history.push('/flashcard/' + this.props.username)
     } 
   }
+  componentDidMount(){
+    //Checks if user is logged in/authenticated
+    if(this.props.isAuthenticated === true){
+      this.props.history.push('/flashcard/' + this.props.username)
+    } 
+  }
+
+
 
   //Toggles Login component to view and mark button as active
   toggleLogin = (index) =>{

@@ -27,10 +27,11 @@ class Register extends Component{
        alert(response.data.msg);
        this.redirectLogin();
    }
+   this.redirectLogin();
    });
  }
  redirectLogin() {
-  this.props.history.push("/flashcard/login");
+  this.props.history.replace("/flashcard/login/");
 }
 
   render(){
