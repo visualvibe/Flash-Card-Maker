@@ -54,43 +54,44 @@ export function addCard(card){
 
 
 //Function that handles deleting of a card
-export const deleteCard = (id, url, history) => (dispatch, getState) =>{
- axios({
-  method: 'POST', 
-  url:'/api/removecard', 
-  'content-type': 'application/json',
-  data: {
-   set_id: id
-  } 
- })
- .then(res=>
-  dispatch({
-   type: DELETE_CARD,
-   payload: id
-  }))
-  history.push(url)
+export const deleteCard = (e, id, url, history) => (dispatch, getState) =>{
+  e.preventDefault();
+  axios({
+    method: 'POST', 
+    url:'/api/removecard', 
+    'content-type': 'application/json',
+    data: {
+    set_id: id
+    } 
+  })
+  .then(res=>
+    dispatch({
+    type: DELETE_CARD,
+    payload: id
+    }))
+    history.push(url)
 }
 
 //Handles title edit of card
 export const handleEditTitle = (e, index) => (dispatch, getState)=>{
   const title = e.target.textContent
   axios({
-  method: 'POST', 
-  url:'/api/edittitle', 
-  'content-type': 'application/json',
-  data: {
-    title: e.target.textContent,
-    set_id: index
-   }
- })
- .then(res => {
-  var card = [...getState().cards.cards]
-  var i = card.findIndex(obj => obj.set_id === index)
-  card[i].title = title
-  dispatch({
-   type: HANDLE_EDIT_TITLE,
-   payload: card
+    method: 'POST', 
+    url:'/api/edittitle', 
+    'content-type': 'application/json',
+    data: {
+      title: e.target.textContent,
+      set_id: index
+    }
   })
+  .then(res => {
+    var card = [...getState().cards.cards]
+    var i = card.findIndex(obj => obj.set_id === index)
+    card[i].title = title
+    dispatch({
+      type: HANDLE_EDIT_TITLE,
+      payload: card
+    })
   })
   
 }

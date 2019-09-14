@@ -27,7 +27,7 @@ const Question = ({questions, removeQuestion, handleEditAnswer, handleEditQuesti
         </div> 
         <div className="question-buttons-container">
           <button onClick={toggleEditable}>
-            {getState ? "Disable Edit" : "Edit"}
+            {getState ? "Apply Edit" : "Edit"}
           </button>
           <button onClick={ (e) => {removeQuestion(question.q_id)}}>Delete</button>
         </div>  

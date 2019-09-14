@@ -37,7 +37,7 @@ class AddCard extends Component{
       
       <form className="login-form" onSubmit={this.handleSubmit.bind(this)} method='POST'>
         <div className="container-header login">
-          <h1>Add new card</h1>
+          <h1>Add new card set</h1>
         </div>
         <div className="login-form-bottom">
 

@@ -9,7 +9,8 @@ class QuizCard extends Component {
   super()
   this.state ={
    activeIndex: 0,
-   isQuestionVisible: true
+   isQuestionVisible: true,
+   animation: 0
   }
  }
  
@@ -18,25 +19,36 @@ class QuizCard extends Component {
   this.props.getCardInfo(this.props.match.params.card_id)
 }
 
+ //Handles the clicking of previous button
  handleNext = (e, i) =>{
   this.setState({
-   activeIndex: i
+   activeIndex: i,
+   isQuestionVisible: true,
+   animation: 0
   })
  }
+  //Handles the clicking of next button
   handleBefore = (e, i) =>{
    this.setState({
-    activeIndex: i
+    activeIndex: i,
+    isQuestionVisible: true,
+    animation: 0
    })
  }
 
+ //Handles clicking show question
  handleShowQuestion = () =>{
   this.setState({
    isQuestionVisible: true,
+   animation: 1
   })
  }
+
+ //Handles clicking show answer
  handleShowAnswer = (e) =>{
   this.setState({
    isQuestionVisible: false,
+   animation: 1
   })
  }
  
@@ -49,7 +61,8 @@ class QuizCard extends Component {
     <Quiz questions={this.props.questions} activeIndex={this.state.activeIndex}
      handleNext={this.handleNext} handleBefore={this.handleBefore}
      handleShowQuestion={this.handleShowQuestion} handleShowAnswer={this.handleShowAnswer}
-     isQuestionVisible={this.state.isQuestionVisible} isAnswerVisible={this.state.isAnswerVisible}/>
+     isQuestionVisible={this.state.isQuestionVisible} isAnswerVisible={this.state.isAnswerVisible}
+     animation={this.state.animation}/>
   </div>
   )
  }

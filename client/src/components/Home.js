@@ -1,7 +1,6 @@
 import React from 'react'
 import Login from './Login'
 import Register from './Register'
-import HomePicture from '../images/homepic.jpg'
 
 const Home = ({activeIndex, isLoginVisible, isHomeVisible, toggleHome, isRegisterVisible, toggleLogin, toggleRegister}) =>{
   return(

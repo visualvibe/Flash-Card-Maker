@@ -30,7 +30,7 @@ class Login extends Component {
       password
     }
     await this.props.login(user)
-    this.props.history.replace('/flashcard/' + username)
+    this.props.history.replace('/flashcard/' + username + '/edit/flashcards')
     /*
  
     login(user).then(res =>{

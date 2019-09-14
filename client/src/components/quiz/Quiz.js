@@ -3,12 +3,12 @@ import ContentEditable from "react-contenteditable"
 
 
 const Quiz = ({questions, activeIndex, handleNext, handleBefore, 
-  handleShowAnswer, handleShowQuestion, isQuestionVisible, isAnswerVisible}) =>{
+  handleShowAnswer, handleShowQuestion, isQuestionVisible, isAnswerVisible, animation}) =>{
 
   const questionList = questions.map((question, i) => {
     return(
       <div  className="question study" key={question.q_id}>
-        <div className="question-question">
+        <div className={animation !== 1 ? 'question-question studycardx' : 'question-question studycard'}>
         <label>Question </label>
           <ContentEditable
             className="editable"
@@ -23,7 +23,7 @@ const Quiz = ({questions, activeIndex, handleNext, handleBefore,
   const answerList = questions.map((question, i) => {
     return(
       <div  className="question study" key={question.q_id}>
-        <div className="question-question">
+        <div className={animation !== 1 ? 'question-question studycardx' : 'question-question studycard'}>
         <label>Answer </label>
           <ContentEditable
             className="editable"
@@ -38,32 +38,28 @@ const Quiz = ({questions, activeIndex, handleNext, handleBefore,
   })
 
   return(
-  <div>
+  <>
     <div className='question-container quiz'>
     {isQuestionVisible ?
-      <div className="question-container-question">
-        {questionList[activeIndex]}
-      </div> 
-      : 
-      <div className="question-container-question">
-        {answerList[activeIndex]}
-      </div> 
-    }
+      <> {questionList[activeIndex]} </> :null }
+
+    {!isQuestionVisible ? 
+      <> {answerList[activeIndex]} </> : null}
     </div>
     <div className='quiz-buttons-container'>
       {activeIndex !== 0 ?       
         <button style={{zIndex: '125'}}onClick={(e) => handleBefore(e, activeIndex-1)}> &#8678;</button>
       :
-        null
+      <button style={{zIndex: '125', color: 'grey', cursor: 'no-drop'}}> &#8678;</button>
       }
-      <span>Question {activeIndex+1}/{questionList.length}</span>
+      <span>{activeIndex+1}/{questionList.length}</span>
       {activeIndex !== questionList.length-1 ?       
         <button style={{zIndex: '125'}}onClick={(e) => handleNext(e, activeIndex+1)}> &#8680;</button>
       :
-        null
+        <button style={{zIndex: '125', color: 'grey', cursor: 'no-drop'}}> &#8680;</button>
       }
     </div>
-    </div>
+    </>
     
   )
 }

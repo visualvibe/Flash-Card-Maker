@@ -1,9 +1,10 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom'
 import ContentEditable from "react-contenteditable"
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
+import SearchBox from '../SearchBox'
 
-const ViewQuizCards = ({cards, x, history}) =>{
+const ViewQuizCards = ({cards, x, history, handleSearch}) =>{
   const flashcardList = cards.map(card => {
   return(
      <NavLink to={{
@@ -34,9 +35,13 @@ const ViewQuizCards = ({cards, x, history}) =>{
 
   return(
    <div className="container edit-card">
-    <div className="container-header">
+    <div className="container-header profile">
       <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Study</span>Your Flashcards </h1>
+      <div className="container-middle-header">
+        <SearchBox handleSearch={handleSearch}/>
+     </div>
     </div>
+  
     <div className="view-quiz-header">
      <h1>&#8681; Pick a Set To Study From</h1>
     </div>

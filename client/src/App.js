@@ -7,7 +7,7 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux';
-import store from './store'
+import {getCards} from './actions/CardActions'
 import { withRouter } from 'react-router-dom'
 import compose from 'recompose/compose'
 
@@ -31,8 +31,19 @@ class App extends Component {
     if(this.props.isAuthenticated === true){
       this.props.history.push('/flashcard/' + this.props.username)
     } 
+    //If user not authenticated/ push to main page
+    if(this.props.isAuthenticated !== true){
+      this.props.history.push('/flashcard/')
+    } 
   }
-
+  
+  componentWillReceiveProps(){
+    //Retrieves user data if user is authenticated
+    if(this.props.isAuthenticated === true){
+      this.props.getCards(this.props.user_id)
+    } 
+  
+  }
 
 
   //Toggles Login component to view and mark button as active
@@ -96,10 +107,11 @@ class App extends Component {
 
 const mapStateToProps = state =>({
   isAuthenticated: state.auth.isAuthenticated,
-  username: state.auth.username
+  username: state.auth.username,
+  user_id: state.auth.user_id
 })
 const enhance = compose(
   withRouter,
-  connect(mapStateToProps)
+  connect(mapStateToProps, {getCards})
 )
 export default enhance(App);

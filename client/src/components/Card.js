@@ -2,8 +2,9 @@ import React from 'react'
 import {NavLink} from 'react-router-dom';
 import ContentEditable from "react-contenteditable"
 import { withRouter } from 'react-router-dom';
+import SearchBox from './SearchBox'
 
-const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, handleEditSubject, x, history}) =>{
+const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, handleEditSubject, x, history, handleSearch}) =>{
   const flashcardList = cards.map(card => {
   return(
   <div className="flashcard" key={card.set_id}>
@@ -29,14 +30,14 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
       <NavLink to={{
         pathname: x + '/edit/flashcard/' + card.set_id,
       }}>
-      <button>View/Edit Card</button>
+      <button>Edit Set</button>
       </NavLink>
 
     
       <button type="submit" onClick={toggleEditable}>
-        {getState ? "Disable Edit" : "Edit"}
+        {getState ? "Apply Edit" : "Edit"}
       </button>
-        <button onClick={ () => {
+        <button onClick={ (e) => {
           removeCard(card.set_id, x, history)
           }} >
           Delete 
@@ -49,9 +50,13 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
 
   return(
    <div className="container edit-card">
-    <div className="container-header">
+    <div className="container-header profile">
       <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Edit</span>Your Flashcards <span style={{ color: '#9c9996', fontSize: '1rem' }}> Total</span> {flashcardList.length} cards</h1>
+      <div className="container-middle-header">
+        <SearchBox handleSearch={handleSearch}/>
+      </div>
     </div>
+
     <div className="flashcard-container">
       {flashcardList}
     </div>
