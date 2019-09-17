@@ -1,11 +1,8 @@
 import React, { Component} from 'react';
-import NavBar from './components/NavBar';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
 import Home from './components/Home';
-import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
-import { Provider } from 'react-redux'
 import { connect } from 'react-redux';
 import {getCards} from './actions/CardActions'
 import { withRouter } from 'react-router-dom'

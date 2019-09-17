@@ -15,10 +15,15 @@ const UserNavBar = (x) =>{
     }}>
       Edit/View Card Sets
     </NavLink>
-    <NavLink id="quizcard-button" className="left-link" to={{
+    <NavLink id="studycard-button" className="left-link" to={{
       pathname:  x.x + '/study/flashcards/'
     }}>
       Study
+    </NavLink>
+    <NavLink id="quizcard-button" className="left-link" to={{
+      pathname:  x.x + '/quiz/flashcards/'
+    }}>
+      Quiz
     </NavLink>
     <Logout />
   </div>

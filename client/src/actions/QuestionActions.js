@@ -1,9 +1,12 @@
 import axios from 'axios'
-import { GET_QUESTIONS, TOGGLE_EDIT, GET_CARD_INFO, ADD_QUESTION, EDIT_QUESTION, EDIT_ANSWER, DELETE_QUESTION } from './types'
+import { QUESTIONS_LOADING, GET_QUESTIONS, TOGGLE_EDIT, GET_CARD_INFO, ADD_QUESTION, EDIT_QUESTION, EDIT_ANSWER, DELETE_QUESTION, UNLOAD_QUESTIONS } from './types'
 
 //Function to get questions from back end
-export const getQuestions = (set_id) => (dispatch,getState) =>{
- axios({
+export const getQuestions = (set_id) =>  (dispatch,getState) =>{
+  dispatch({
+    type: QUESTIONS_LOADING
+  })
+  axios({
   method: 'POST', 
   url:'/api/cards/questions', 
   'content-type': 'application/json',
@@ -17,6 +20,7 @@ export const getQuestions = (set_id) => (dispatch,getState) =>{
    type: GET_QUESTIONS,
    payload: res.data
   })
+ 
  })
 }
 
@@ -132,4 +136,8 @@ export const handleEditAnswer = (e, index) => (dispatch, getState)=>{
 //Toggles edit button
 export const toggleEdit = () => (dispatch, getState) =>{
   dispatch({type: TOGGLE_EDIT})
+}
+
+export const unloadQuestions = () => (dispatch, getState) =>{
+  dispatch({type: UNLOAD_QUESTIONS})
 }

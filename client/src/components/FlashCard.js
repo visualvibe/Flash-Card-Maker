@@ -6,10 +6,11 @@ import { getQuestions, getCardInfo, toggleEdit, addQuestion, removeQuestion, han
 
 class FlashCard extends Component{
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.getQuestions(this.props.match.params.card_id)
     this.props.getCardInfo(this.props.match.params.card_id)
   }
+
 
 
  //Toggles the edit button for question/answer edit

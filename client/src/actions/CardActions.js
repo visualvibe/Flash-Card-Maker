@@ -54,8 +54,7 @@ export function addCard(card){
 
 
 //Function that handles deleting of a card
-export const deleteCard = (e, id, url, history) => (dispatch, getState) =>{
-  e.preventDefault();
+export const deleteCard = (id, url, history) => (dispatch, getState) =>{
   axios({
     method: 'POST', 
     url:'/api/removecard', 
@@ -69,7 +68,6 @@ export const deleteCard = (e, id, url, history) => (dispatch, getState) =>{
     type: DELETE_CARD,
     payload: id
     }))
-    history.push(url)
 }
 
 //Handles title edit of card

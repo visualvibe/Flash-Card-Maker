@@ -1,19 +1,28 @@
-import { GET_QUESTIONS, TOGGLE_EDIT, GET_CARD_INFO, ADD_QUESTION, EDIT_QUESTION, EDIT_ANSWER, DELETE_QUESTION } from '../actions/types'
+import { QUESTIONS_LOADING, UNLOAD_QUESTIONS, GET_QUESTIONS, TOGGLE_EDIT, GET_CARD_INFO, ADD_QUESTION, EDIT_QUESTION, EDIT_ANSWER, DELETE_QUESTION } from '../actions/types'
 
 const initState = {
  title: '',
  subject: '',
  set_id: '',
  editable: false,
+ isLoading: false,
+ isLoaded: false,
  questions: []
 }
 
 export default function(state = initState, action){
  switch(action.type){
+  case QUESTIONS_LOADING:
+    return{
+     ...state,
+     isLoading: true
+    }
   case GET_QUESTIONS:
    return{
     ...state,
-    questions: action.payload
+    questions: action.payload,
+    isLoading: false,
+    isLoaded: true
    }
   case ADD_QUESTION:
    return{
@@ -45,6 +54,11 @@ export default function(state = initState, action){
      ...state,
      questions: action.payload
     }
+    case UNLOAD_QUESTIONS:
+      return{
+        ...state,
+        isLoaded: false
+      }
   default:
    return state
  }

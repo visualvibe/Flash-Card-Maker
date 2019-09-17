@@ -145,6 +145,7 @@ h1{
 .header{
   height: 60px;
   border-top: 5px #0c203d solid;
+  background: white;
   z-index: 25;
 }
 
@@ -186,6 +187,7 @@ h1{
 .profile-left-container-header{
   padding: 1rem;
   background: #10294f;
+  
 }
 
 /*Navigation css*/
@@ -217,7 +219,7 @@ h1{
 
 #home-button:before, #login-button:before, #register-button:before,
 #addcard-button:before, #editcard-button:before, #user-button:before,
-#logout-button:before, #quizcard-button:before{
+#logout-button:before, #studycard-button:before, #quizcard-button:before{
   content: '';
   display: inline-block;
   position: relative;
@@ -251,6 +253,10 @@ h1{
 }
 #logout-button:before{
   background: url('./images/logout.png');
+  background-size: 25px 25px;
+}
+#studycard-button:before{
+  background: url('./images/quizquiz.png');
   background-size: 25px 25px;
 }
 #quizcard-button:before{
@@ -380,8 +386,6 @@ h1{
   max-height: 85px;
   height: 85px;
   font-size: 1.6rem;
-  max-width: 15rem;
-
 }
 .flashcard button,
 .question-buttons-container button{

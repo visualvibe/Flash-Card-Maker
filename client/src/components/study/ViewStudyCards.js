@@ -4,11 +4,12 @@ import ContentEditable from "react-contenteditable"
 import { withRouter } from 'react-router-dom'
 import SearchBox from '../SearchBox'
 
-const ViewQuizCards = ({cards, x, history, handleSearch}) =>{
+const ViewStudyCards = ({cards, x, history, handleSearch}) =>{
   const flashcardList = cards.map(card => {
   return(
      <NavLink to={{
-      pathname: x + '/quiz/flashcard/' + card.set_id}}  key={card.set_id} className="xx">
+      pathname: x + '/study/flashcard/' + card.set_id,
+      }} key={card.set_id} className="xx">
      <div className="flashcard study" >
       <div className="flashcard-title">
         <label>Title </label>
@@ -35,15 +36,14 @@ const ViewQuizCards = ({cards, x, history, handleSearch}) =>{
   return(
    <div className="container edit-card">
     <div className="container-header profile">
-      <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Quiz</span>Your Flashcards </h1>
+      <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Study</span>Your Flashcards </h1>
       <div className="container-middle-header">
         <SearchBox handleSearch={handleSearch}/>
      </div>
     </div>
   
     <div className="view-quiz-header">
-     <h1>&#8681; Pick a set to quiz yourself on</h1>
-     <p>Only flashcard sets with at least 4 or more questions are shown/playable</p>
+     <h1>&#8681; Pick a Set To Study From</h1>
     </div>
 
     <div className="flashcard-container study">
@@ -53,4 +53,4 @@ const ViewQuizCards = ({cards, x, history, handleSearch}) =>{
   )
 }
 
-export default withRouter(ViewQuizCards);
+export default withRouter(ViewStudyCards);

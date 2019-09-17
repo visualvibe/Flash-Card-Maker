@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Card from './Card'
 import AddCard from './AddCard'
 import FlashCard from './FlashCard'
+import ViewStudyCards from './study/ViewStudyCards'
+import StudyCard from './study/StudyCard'
 import ViewQuizCards from './quiz/ViewQuizCards'
 import QuizCard from './quiz/QuizCard'
 import { Route, Switch } from 'react-router-dom'
@@ -10,8 +12,8 @@ import { getCards, toggleEdit, addCard, deleteCard, handleEditTitle, handleEditS
 import UserNavBar from './UserNavBar'
 
 class Profile extends Component{
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
       this.state = {
         searchCard: ''
       }
@@ -25,36 +27,39 @@ class Profile extends Component{
   }
   */
 
-
-
   componentWillMount(){
     if(this.props.isAuthenticated === true){
       this.props.getCards(this.props.user_id)
     } 
   }
-  componentWillReceiveProps(){
-    //If user authenticated, retrieve data from redux store
 
+  
+  componentWillReceiveProps(){
     this.setState({
       searchCard: ''
     })
   }
+
   //Toggles edit button
   toggleEditable = () =>{
     this.props.toggleEdit()
     console.log(this.state)
   }
 
+  //Handles search input
   handleSearch = (e) =>{
     this.setState({
       searchCard: e.target.value
     })
+  }
+
+  handleClickQuiz = (i) =>{
 
   }
+
   render(){
     //Filters card when user inputs value into search box
     let filteredCards = this.props.cards.filter((card) => {
-      console.log(card)
       //Joins carc.title & card.subject into array
       var c = [card.title.toLowerCase(), card.subject.toLowerCase()]
       return c[0].includes(this.state.searchCard.toLowerCase())
@@ -92,13 +97,23 @@ class Profile extends Component{
                   handleSearch={this.handleSearch} /> } />
                 <Route 
                   path={`${this.props.match.path}/study/flashcards/`} 
-                  render={(props) => <ViewQuizCards {...props} 
+                  render={(props) => <ViewStudyCards {...props} 
                   cards={filteredCards} 
                   x={this.props.match.url}
                   history={this.props.history}
                   handleSearch={this.handleSearch} /> } />
                   <Route 
                   path={`${this.props.match.path}/study/flashcard/:card_id/`} 
+                  component={StudyCard} /> } />
+                <Route 
+                  path={`${this.props.match.path}/quiz/flashcards/`} 
+                  render={(props) => <ViewQuizCards {...props} 
+                  cards={filteredCards} 
+                  x={this.props.match.url}
+                  history={this.props.history}
+                  handleSearch={this.handleSearch} /> } />
+                <Route 
+                  path={`${this.props.match.path}/quiz/flashcard/:card_id/`} 
                   component={QuizCard} /> } />
               </Switch>
 

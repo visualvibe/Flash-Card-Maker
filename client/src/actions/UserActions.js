@@ -1,13 +1,11 @@
 import axios from 'axios'
 import {returnErrors} from './ErrorActions'
-import { USER_LOADED,
+import { 
   USER_LOADING,
-  AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL} from './types'
+  } from './types'
 
 export const loadUser = () => (dispatch, getState) =>{
   dispatch({ type: USER_LOADING})
