@@ -42,8 +42,8 @@ const ViewQuizCards = ({cards, x, history, handleSearch}) =>{
     </div>
   
     <div className="view-quiz-header">
-     <h1>&#8681; Pick a set to quiz yourself on</h1>
-     <p>Only flashcard sets with at least 4 or more questions are shown/playable</p>
+     <h1> Pick a set to take a multiple choice quiz</h1>
+     <p>&#8681; Only flashcard sets with at least <strong>4 or more </strong> questions are playable!</p>
     </div>
 
     <div className="flashcard-container study">

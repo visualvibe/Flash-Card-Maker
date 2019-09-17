@@ -19,14 +19,6 @@ class Profile extends Component{
       }
   }
 
-  /*
-  componentWillMount(){
-    if(this.props.isAuthenticated === undefined) {
-      this.props.history.replace('/flashcard')
-    }
-  }
-  */
-
   componentWillMount(){
     if(this.props.isAuthenticated === true){
       this.props.getCards(this.props.user_id)
@@ -114,10 +106,9 @@ class Profile extends Component{
                   handleSearch={this.handleSearch} /> } />
                 <Route 
                   path={`${this.props.match.path}/quiz/flashcard/:card_id/`} 
-                  component={QuizCard} /> } />
+                  render={(props) => <QuizCard {...props} 
+                  x={this.props.match.url} /> } />
               </Switch>
-
-
           </div>
         </div> 
       </div>

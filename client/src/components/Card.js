@@ -51,7 +51,7 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
   return(
    <div className="container edit-card">
     <div className="container-header profile">
-      <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Edit</span>Your Flashcards <span style={{ color: '#9c9996', fontSize: '1rem' }}> Total</span> {flashcardList.length} cards</h1>
+      <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Edit</span>Your Flashcards<span style={{ color: '#9c9996', fontSize: '1rem' }}> Total</span> {flashcardList.length} Sets</h1>
       <div className="container-middle-header">
         <SearchBox handleSearch={handleSearch}/>
       </div>
