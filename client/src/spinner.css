@@ -143,13 +143,12 @@
 .modal.after-question{
   position: fixed;
   z-index: 255;
-  left:15%;
+  left: 15%;
+  right: 0;
   height: 350px; width: 600px;
   top: 25%;
-  right:0;
   border: none;
-  margin-left:auto;
-  margin-right:auto;
+
 }
 .modal.after-question button{
   background: none;
@@ -181,7 +180,7 @@
 }
 
 .modal.after-question .modal-content span{
-  font-size: 1rem;
+  font-size: 1.5rem;
   display: block;
   text-align: center;
 }

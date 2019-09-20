@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AfterQuestionModal = ({handleClose, wasCorrect, correctAnswer, currentQuestion}) =>(
+const AfterQuestionModal = ({handleClose, wasCorrect, correctAnswer, currentQuestion, activeIndex}) =>(
  <div className="modal after-question">
   <div className={wasCorrect == true ? "modal-header green" : "modal-header red"}>
    {wasCorrect == true ? 
@@ -13,11 +13,11 @@ const AfterQuestionModal = ({handleClose, wasCorrect, correctAnswer, currentQues
    <span>Question: {currentQuestion}</span>
    <span className="green">Correct answer: {correctAnswer}</span>
    </>
-    : null }
+    : <span>Well Done!</span> }
    
   </div>
   <div className="modal-buttons">
-   <button onClick={(e) =>{handleClose(e)}}>Next</button>
+   <button onClick={(e) =>{handleClose(e, activeIndex)}}>Next</button>
   </div>
  </div>
 )

@@ -159,8 +159,7 @@ h1{
   padding: 0.9rem;
   padding-left: 0.9%;
   font-size: 1.6rem;
-  background: red;
-  width: 11.8%;
+  width: 11.62%;
   border-right: 5px #0c203d solid;
   border-left: 5px #0c203d solid;
   color: #0c203d;
@@ -296,7 +295,7 @@ h1{
   overflow-y: scroll;
   height: auto;
   margin-top: -3.75rem;
-  background: #fffdfb;
+  background: url('./images/right.png');
   z-index: 5;
 }
 
@@ -387,7 +386,18 @@ h1{
   grid-auto-rows: minmax(auto,200px);
   animation: fadeIn 0.3s ease-in;
   transform: translateY(0px);
+}
+.star{
+  box-sizing: border-box;
+  padding: 0.2rem 1rem 0.5rem 1rem;
+  color: darkgrey;
+  font-size: 3rem;
+  max-height: 10px;
+  color: darkgrey;
+}
 
+.star.yellow{
+  color: #ffb428;
 }
 
 @keyframes fadeIn{
@@ -407,14 +417,12 @@ h1{
 }
 .flashcard-title,
 .flashcard-subject{
-  padding-top: 4%;
   text-align: center;
-  align-self: start;
-  justify-self: center;
   max-height: 85px;
   height: 85px;
   font-size: 1.6rem;
 }
+
 .flashcard button,
 .question-buttons-container button{
   background: none;
@@ -433,7 +441,6 @@ h1{
 .editable{
   font-family: 'Manjari', sans-serif;
   font-weight: lighter;
-  text-align: center;
   padding: 0.1rem;
 }
 
@@ -453,7 +460,7 @@ h1{
 .addquestion-container{
   box-sizing: border-box;
   top: 12.3%;
-  right: 2.9%;
+  right: 2.3%;
   padding: 0 1rem 0 1rem;
   position: fixed;
   background: #1e498a;
@@ -491,19 +498,27 @@ h1{
   grid-template-rows: 300px 50px;
   grid-row-gap: 1rem;
   grid-column-gap: 1%;
+ 
 }
 
 .question-question, .question-answer{
   box-shadow: 0px 1px 5px grey;
   background: white;
-  width: 100%;
   height: 100%;
+  max-width: 550px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-auto-columns: 1fr;
   justify-items: center;
-  grid-auto-rows: minmax(1fr,1fr);
 }
 
+.editable{
+  position: relative;
+  text-align: center;
+}
+
+pre{
+  white-space: normal !important;
+}
 
 .question-buttons-container{
   grid-column: 2/3;
@@ -571,10 +586,13 @@ h1{
 .flashcard.study{
   justify-self: center;
   box-shadow: 0px -10px 15px lightgrey;
-  border-width: 5px 0px 0px 0px;
-  grid-auto-rows: 130px;
-  height: 100%;
+  grid-template-rows: 35px 1fr 1.2fr ;
+  height: 360px;
   transition: 0.2s ease-in-out;
+}
+
+.orderby-buttons-container.study{
+  margin-top: -2.5%;
 }
 
 .flashcard.study:hover{
@@ -594,11 +612,12 @@ h1{
   margin-bottom: -3%;
   font-family: 'Manjari',sans-serif;
 }
+
 .view-quiz-header h1{
   color: #0c203d;
+  font-family: 'Manjari',sans-serif;
 }
 .view-quiz-header p{
-  margin-left: 2%;
   font-size: 1.2rem;
 }
 .question-container.quiz{
@@ -660,15 +679,20 @@ h1{
 .question-question.studycard{
   perspective: 1000px;
   min-height: 350px;
+  max-width: 820px;
   position: relative;
   animation: flipQuestionY 0.3s linear;
   transform: rotateY(0deg);
+}
+.question-question.studycard .editable{
+  font-size: 1.8rem;
 }
 
 .question-question.studycardx{
   animation: flipQuestionx 0.3s linear;
   perspective: 1000px;
   min-height: 350px;
+  
   position: relative;
   transform: rotateX(0deg);
 
@@ -787,3 +811,34 @@ h1{
 
 
 /*End Quiz Styles*/
+
+/*Order by styles*/
+.orderby-buttons-container{
+  width: 87%;
+  margin: 0 auto;
+  margin-bottom: 1%;
+  border-bottom: 1px lightgrey solid;
+}
+
+.orderby-buttons-container span{
+  font-size: 0.8rem;
+  color: darkgrey;
+  margin-right: 0.8%;
+}
+
+.orderby-buttons-container button{
+  font-size: 1.1rem;
+  color: darkgrey;
+  font-family: 'Manjari', sans-serif;
+  margin-right: 0.2%;
+  padding: 0.9rem;
+}
+
+.activex{
+  color: black !important;
+  font-weight: bold;
+  background: white !important;
+  border-bottom: 2px #255eb3 solid;
+}
+
+/*End order by styles */

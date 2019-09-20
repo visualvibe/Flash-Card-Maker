@@ -70,10 +70,8 @@ class QuizCard extends Component {
   //Handles the answer selection of quez
   handleClick = (e, answer, index) =>{
     e.preventDefault()
-    //Ends game showing modal of final score
-    if(index === this.state.dataSet.length-1){
-      this.openDialog()
-    }
+    
+
     if(this.state.dataSet[index].q_id === answer.q_id){
 
       this.setState({
@@ -91,14 +89,20 @@ class QuizCard extends Component {
         currentQuestion: this.state.dataSet[index].q_value
       })
     }
+    //Ends game showing modal of final score
+
   }
 
 
-  handleClose = () =>{
+  handleClose = (e, i) =>{
     this.setState({ 
       isAfterQuestionDialogOpen: false,
       activeIndex: this.state.activeIndex + 1
     })
+     //Ends game showing modal of final score
+    if(i === this.state.dataSet.length-1){
+      this.openDialog()
+    }
   }
   openDialog = () => this.setState({ isDialogOpen: true })
 
@@ -134,7 +138,7 @@ class QuizCard extends Component {
           <EndGameModal handlePlayAgain={this.handlePlayAgain} correct={this.state.correct} totalQuestions={this.state.dataSet.length}/>
         )}
         {this.state.isAfterQuestionDialogOpen == true &&(
-          <AfterQuestionModal handleClose={this.handleClose} wasCorrect={this.state.wasCorrect} correctAnswer={this.state.correctAnswer} currentQuestion={this.state.currentQuestion}/>
+          <AfterQuestionModal handleClose={this.handleClose} activeIndex={this.state.activeIndex} wasCorrect={this.state.wasCorrect} correctAnswer={this.state.correctAnswer} currentQuestion={this.state.currentQuestion}/>
         )}
         <Quiz questions={this.state.dataSet} activeIndex={this.state.activeIndex}
           handleClick={this.handleClick} isAfterQuestionDialogOpen={this.state.isAfterQuestionDialogOpen} />

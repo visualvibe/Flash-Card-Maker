@@ -4,13 +4,15 @@ import ContentEditable from "react-contenteditable"
 import { withRouter } from 'react-router-dom'
 import SearchBox from '../SearchBox'
 
-const ViewStudyCards = ({cards, x, history, handleSearch}) =>{
+const ViewStudyCards = ({makeFavorite, cards, x, history, handleSearch, orderByFavorite, orderByNewest,
+  orderByOldest, activeIndex}) =>{
   const flashcardList = cards.map(card => {
   return(
      <NavLink to={{
       pathname: x + '/study/flashcard/' + card.set_id,
       }} key={card.set_id} className="xx">
      <div className="flashcard study" >
+     <div onClick={(e) =>{makeFavorite(e, card.set_id)}} style={{cursor:'pointer'}} className={card.isFavorite == 1 ? 'star yellow' : 'star'}>&#9733;</div>
       <div className="flashcard-title">
         <label>Title </label>
         <ContentEditable
@@ -43,9 +45,14 @@ const ViewStudyCards = ({cards, x, history, handleSearch}) =>{
     </div>
   
     <div className="view-quiz-header">
-     <h1>&#8681; Pick a Set To Study From</h1>
+     <h1>Pick a Set To Study From</h1>
     </div>
-
+    <div className="orderby-buttons-container study">
+      <span>Order By</span>
+      <button className={activeIndex === 0 ? 'activex' : '' } onClick={(e) => {orderByNewest(e)}}>Newest</button>
+      <button className={activeIndex === 1 ? 'activex' : '' }  onClick={(e) => {orderByOldest(e)}}>Oldest</button>
+      <button className={activeIndex === 2 ? 'activex' : '' }  onClick={(e) => {orderByFavorite(e)}}>Favorite</button>
+    </div>
     <div className="flashcard-container study">
       {flashcardList}
     </div>

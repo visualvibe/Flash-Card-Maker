@@ -1,4 +1,7 @@
-import { GET_CARDS, TOGGLE_EDIT, CARDS_LOADING, ADD_CARD, DELETE_CARD, HANDLE_EDIT_TITLE, HANDLE_EDIT_SUBJECT } from '../actions/types'
+import { GET_CARDS, TOGGLE_EDIT, 
+  CARDS_LOADING, ADD_CARD, 
+  DELETE_CARD, HANDLE_EDIT_TITLE, 
+  HANDLE_EDIT_SUBJECT, MAKE_FAVORITE } from '../actions/types'
 
 const initState = {
  cards: [],
@@ -38,12 +41,16 @@ export default function(state = initState, action){
      ...state,
      cards: action.payload
     }
-   case HANDLE_EDIT_SUBJECT:
+  case HANDLE_EDIT_SUBJECT:
     return{
-     ...state,
-     cards: action.payload
+      ...state,
+      cards: action.payload
     }
-   default:
-    return state
- }
+  case MAKE_FAVORITE:
+    return{
+      ...state,
+      cards: action.payload
+    }
+  default:
+    return state }
 }

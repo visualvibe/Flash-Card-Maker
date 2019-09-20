@@ -4,18 +4,25 @@ import ContentEditable from "react-contenteditable"
 import { withRouter } from 'react-router-dom';
 import SearchBox from './SearchBox'
 
-const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, handleEditSubject, x, history, handleSearch}) =>{
+const Card = ({cards, removeCard, getState,
+    toggleEditable, handleEditTitle,
+    handleEditSubject, x, history,
+    handleSearch, makeFavorite,
+    orderByFavorite, orderByNewest,
+    orderByOldest, activeIndex }) =>{
+      
   const flashcardList = cards.map(card => {
   return(
   <div className="flashcard" key={card.set_id}>
+    <div onClick={(e) =>{makeFavorite(e, card.set_id)}} style={{cursor:'pointer'}} className={card.isFavorite == 1 ? 'star yellow' : 'star'}>&#9733;</div>
     <div className="flashcard-title">
-      <label>Title </label>
-      <ContentEditable
-        className="editable"
-        tagName="pre"
-        html={card.title}
-        disabled={!getState}
-        onBlur={ (e) => {handleEditTitle(e, card.set_id)} } />    
+        <label>Title </label>
+        <ContentEditable
+          className="editable"
+          tagName="pre"
+          html={card.title}
+          disabled={!getState}
+          onBlur={ (e) => {handleEditTitle(e, card.set_id)} } />  
     </div> 
     <div className="flashcard-subject">
       <label>Subject </label>
@@ -56,8 +63,13 @@ const Card = ({cards, removeCard, getState, toggleEditable, handleEditTitle, han
         <SearchBox handleSearch={handleSearch}/>
       </div>
     </div>
-
-    <div className="flashcard-container">
+    <div className="orderby-buttons-container profile">
+      <span>Order By</span>
+      <button className={activeIndex === 0 ? 'activex' : '' } onClick={(e) => {orderByNewest(e)}}>Newest</button>
+      <button className={activeIndex === 1 ? 'activex' : '' }  onClick={(e) => {orderByOldest(e)}}>Oldest</button>
+      <button className={activeIndex === 2 ? 'activex' : '' }  onClick={(e) => {orderByFavorite(e)}}>Favorite</button>
+    </div>
+    <div className="flashcard-container profile">
       {flashcardList}
     </div>
    </div>

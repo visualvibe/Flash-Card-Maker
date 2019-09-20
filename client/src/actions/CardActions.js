@@ -1,5 +1,8 @@
 import axios from 'axios'
-import { GET_CARDS, TOGGLE_EDIT, CARDS_LOADING, ADD_CARD, DELETE_CARD, HANDLE_EDIT_TITLE, HANDLE_EDIT_SUBJECT } from './types'
+import { GET_CARDS, TOGGLE_EDIT, 
+  CARDS_LOADING, ADD_CARD, 
+  DELETE_CARD, HANDLE_EDIT_TITLE, 
+  HANDLE_EDIT_SUBJECT, MAKE_FAVORITE } from './types'
 
 //Function to retrieve cards from the backend to put into redux store
 export const getCards = (user_id) => (dispatch, getState) =>{
@@ -122,8 +125,57 @@ export const toggleEdit = () => (dispatch, getState) =>{
  dispatch({type: TOGGLE_EDIT})
 }
 
+//Sets cards to loading
 export const setCardsLoading = () => {
  return {
    type: CARDS_LOADING
  }
+}
+
+//Handles making a card a favorite or unfavoriting it
+export const makeFavorite = (set_id) => (dispatch, getState) => {
+  axios({
+    method: 'POST', 
+    url:'/api/cards/favorite', 
+    'content-type': 'application/json',
+    data: {
+      set_id: set_id
+    }
+  }).then(res =>{
+    var card = [...getState().cards.cards]
+    var i = card.findIndex(obj => obj.set_id === set_id)
+    card[i].isFavorite = !card[i].isFavorite
+
+    dispatch({
+      type: MAKE_FAVORITE,
+      payload: card
+    })
+  })
+}
+
+//Orders by favorite
+export const orderByFavorite = async (user_id) =>{
+  return axios({
+    method: 'POST', 
+    url:'/api/cards/orderbyfavorite', 
+    'content-type': 'application/json',
+    data: {
+      user_id: user_id
+    }
+  }).then(res =>{
+    return res.data
+  })
+}
+
+export const orderByOldest = async (user_id) =>{
+  return axios({
+    method: 'POST', 
+    url:'/api/cards/orderbyoldest', 
+    'content-type': 'application/json',
+    data: {
+      user_id: user_id
+    }
+  }).then(res =>{
+    return res.data
+  })
 }

@@ -24,6 +24,7 @@ const Home = ({activeIndex, isLoginVisible, isHomeVisible, toggleHome, isRegiste
                 <h1 style={{color: 'black'}}>Welcome to Flash Cards Builder </h1>
               </div>
               <span style={{display: 'block'}}>This website is still a WIP, login with "test" for the username & password to see what I've done so far!</span> 
+              <span style={{display: 'block'}}>The website is also not yet fully responsive so please view the site on a full screen browser(preferably not internet explorer!). The site will however, be responsive to around the width of 1300px~</span> 
             </div> : null }
             {isRegisterVisible ? <Register /> : null }
             {isLoginVisible ? <Login /> : null }
