@@ -13,7 +13,6 @@ import { makeFavorite, getCards,
   deleteCard, handleEditTitle, 
   handleEditSubject, orderByFavorite, orderByOldest } from '../actions/CardActions'
 import UserNavBar from './UserNavBar'
-import axios from 'axios'
 
 class Profile extends Component{
   constructor(props){
@@ -22,7 +21,10 @@ class Profile extends Component{
         searchCard: '',
         orderBy: 0,
         orderedCards: [],
-        activeIndex: 0
+        activeIndex: 0,
+        showInfo: false,
+        activeCard: 0,
+        toggleEdit: false
       }
   }
 
@@ -53,11 +55,24 @@ class Profile extends Component{
 
   
 
+  showInfo = (e, i) =>{
+    console.log(this.state.activeCard)
+    console.log(this.state.showInfo)
+    this.setState({
+      showInfo: !this.state.showInfo,
+      activeCard: i
+    })
+  }
 
   //Toggles edit button
-  toggleEditable = () =>{
+  toggleEditable = (e, i) =>{
+    e.preventDefault()
+    this.setState({
+      showInfo: 0,
+      activeCard: i,
+      toggleEdit: !this.state.toggleEdit    
+    })
     this.props.toggleEdit()
-    console.log(this.state)
   }
 
   //Handles search input
@@ -124,7 +139,7 @@ class Profile extends Component{
         <div className="container profile-container">
           <div className="profile-left-container">
               <div className="profile-left-container-header">
-                <h1 id="user-button">{this.props.username}</h1>
+                <h1 id="user-button" style={{fontFamily: 'Manjari, sans-serif', fontWeight: 'bold'}}>{this.props.username}</h1>
               </div>
               <UserNavBar x={this.props.match.url}/>
           </div>
@@ -154,7 +169,11 @@ class Profile extends Component{
                   orderByFavorite={this.orderByFavorite}
                   orderByNewest={this.orderByNewest}
                   orderByOldest={this.orderByOldest}
-                  activeIndex={this.state.activeIndex} /> } />
+                  activeIndex={this.state.activeIndex} 
+                  showInfo={this.showInfo}
+                  showInfoState={this.state.showInfo}
+                  activeCard={this.state.activeCard}
+                  showToggleEdit={this.state.toggleEdit} /> } />
                 <Route 
                   path={`${this.props.match.path}/study/flashcards/`} 
                   render={(props) => <ViewStudyCards {...props} 
@@ -166,10 +185,13 @@ class Profile extends Component{
                   orderByFavorite={this.orderByFavorite}
                   orderByNewest={this.orderByNewest}
                   orderByOldest={this.orderByOldest}
-                  activeIndex={this.state.activeIndex} /> } />
+                  activeIndex={this.state.activeIndex}
+                  showInfo={this.showInfo}
+                  showInfoState={this.state.showInfo}
+                  activeCard={this.state.activeCard} /> } />
                   <Route 
                   path={`${this.props.match.path}/study/flashcard/:card_id/`} 
-                  component={StudyCard} /> } />
+                  render={(props) => <StudyCard {...props} x={this.props.match.url}/> } />
                 <Route 
                   path={`${this.props.match.path}/quiz/flashcards/`} 
                   render={(props) => <ViewQuizCards {...props} 

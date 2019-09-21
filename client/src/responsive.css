@@ -84,14 +84,24 @@
 
  .home-left-container{
   padding-top: -5%;
-  height: 65px;
+  height: 62.5px;
  }
-
+ .login-form{
+   min-width: 300px;
+   width: 80%;
+ }
  .searchbox-container{
   margin-top: 1.6%;
  }
  .profile-right-container, .home-right-container{
   margin-top: 0;
+ }
+
+ .home-right-container{
+   padding-top: 10%;
+   width: 100vw;
+   box-sizing: content-box;
+   background: white;
  }
 
  .flashcard{
@@ -102,6 +112,14 @@
    top: 45%;
    left: 0%;
  }
+ 
+.question.study{
+
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1% 0 1%;
+}
+
 
 
 
@@ -187,8 +205,34 @@
   .modal{
     width: 90vw;
   }
-
+  .container-header{
+    padding: 0;
+    text-align: center;
+    line-height: 30px;
+  }
+  .container-header > h1{
+    font-size: 5vw;
+  }
   .modal.after-question{
     width: 90vw;
   }
+
+  .editable, .question-question.studycard .editable {
+    font-size: 5vw;
+  }
+}
+
+@media only screen and (max-width: 450px){
+  .left-link{
+    font-size: 3.8vw !important;
+  }
+
+  .home-left-container{
+    padding: 1rem;
+    height: 61px;
+    border: #255eb3 solid;
+    border-width: 5px 5px 5px 5px;
+  }
+
+
 }

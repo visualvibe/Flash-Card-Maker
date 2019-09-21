@@ -3,35 +3,47 @@ import {NavLink} from 'react-router-dom'
 import ContentEditable from "react-contenteditable"
 import { withRouter } from 'react-router-dom'
 import SearchBox from '../SearchBox'
+import info from '../../images/info.svg'
 
 const ViewStudyCards = ({makeFavorite, cards, x, history, handleSearch, orderByFavorite, orderByNewest,
-  orderByOldest, activeIndex}) =>{
+  orderByOldest, activeIndex, showInfo, showInfoState, activeCard}) =>{
+
   const flashcardList = cards.map(card => {
-  return(
-     <NavLink to={{
-      pathname: x + '/study/flashcard/' + card.set_id,
-      }} key={card.set_id} className="xx">
-     <div className="flashcard study" >
-     <div onClick={(e) =>{makeFavorite(e, card.set_id)}} style={{cursor:'pointer'}} className={card.isFavorite == 1 ? 'star yellow' : 'star'}>&#9733;</div>
-      <div className="flashcard-title">
-        <label>Title </label>
-        <ContentEditable
-          className="editable"
-          tagName="pre"
-          html={card.title}
-          disabled={true}/>    
-      </div> 
-      <div className="flashcard-subject">
-        <label>Subject </label>
-        <ContentEditable
-          className="editable"
-          tagName="pre"
-          disabled={true}
-          html={card.subject} />    
-      </div> 
-     </div>
-   </NavLink>
-  )
+    let date = card.date_created.split('T')
+    return(
+      <NavLink to={{
+        pathname: x + '/study/flashcard/' + card.set_id,
+        }} key={card.set_id} className="xx">
+      <div className="flashcard study" >
+      <div className="flashcard-header">
+          <div onClick={(e) =>{makeFavorite(e, card.set_id)}} style={{cursor:'pointer'}} className={card.isFavorite == 1 ? 'star yellow' : 'star'}>&#9733;</div>
+          <div className="flashcard-header-right">
+            {console.log(card.set_id)}
+            <div className={showInfoState && activeCard === card.set_id ? 'flashcard-header-right-content show' : 'flashcard-header-right-content'}>
+              <span>Date created: {date[0]}</span>
+            </div>
+            <img onClick={(e)=>{showInfo(e, card.set_id)}} id="xxx" src={info} alt=''></img>
+          </div>
+        </div>
+        <div className="flashcard-title">
+          <label>Title </label>
+          <ContentEditable
+            className="editable"
+            tagName="pre"
+            html={card.title}
+            disabled={true}/>    
+        </div> 
+        <div className="flashcard-subject">
+          <label>Subject </label>
+          <ContentEditable
+            className="editable"
+            tagName="pre"
+            disabled={true}
+            html={card.subject} />    
+        </div> 
+      </div>
+    </NavLink>
+    )
   })
    
 
