@@ -3,8 +3,8 @@
  .header-text{
   min-width: 1%;
   font-size: 1.4vw;
-  min-height: 200px;
-  padding-bottom: 1rem;
+  letter-spacing: 2px;
+  padding-bottom: 2rem;
  }
 }
 
@@ -16,26 +16,27 @@
 
 
  .header-text{
-  font-size: 1.6rem;
+  font-size: 2rem;
    width: 50px;
-   text-align: center;
    box-sizing: border-box;
    display: block;
-
    background: white;
    margin: 0 auto;
-
  }
+
 #user-button:before{
  margin-right: 1.2%;
-
 }
-
 
  .header-text{
   width: 100%;
-  height: 100%;
-  padding: 1rem;
+  padding: 0.3rem;
+  padding-left: 0.5rem;
+ }
+
+ .header{
+   height: 45px;
+   background: black;
  }
 
  .home-buttons-container button:hover,
@@ -65,9 +66,8 @@
  }
 
  .profile-left-container{
-  border:#cc9124 solid;
   border-width: 0px 0 2px 0;
-  border-top: 5px #0c203d solid;
+  
  }
  .left-link{
   justify-self: stretch;
@@ -90,9 +90,7 @@
    min-width: 300px;
    width: 80%;
  }
- .searchbox-container{
-  margin-top: 1.6%;
- }
+
  .profile-right-container, .home-right-container{
   margin-top: 0;
  }
@@ -139,6 +137,7 @@
    text-align: center;
  }
 
+
  .view-quiz-header{
    margin-top: 3%;
    margin-bottom: -5rem;
@@ -158,13 +157,11 @@
    box-shadow: none;
    box-shadow: inset 0px 1px 5px lightgrey;
 }
- .searchbox-container{
-   width: 50%;
-   min-width: 250px;
-  border-radius: 3px;
-
-  position: relative;
- }
+  .searchbox-container{
+    width: 100%;
+    min-width: 250px;
+    border-radius: 3px;
+  }
   .searchbox-container::before{
     margin-left: -48%;
     margin-top: 1.6%;
@@ -180,7 +177,7 @@
   }
 
   .orderby-buttons-container.studyquiz{
-    margin-top: 3%;
+    margin-top: 8%;
   }
   .orderby-buttons-container.profile{
     margin-top: 7%;
@@ -217,15 +214,47 @@
     width: 90vw;
   }
 
-  .editable, .question-question.studycard .editable {
-    font-size: 5vw;
+  .orderby-buttons-container.studyquiz{
+    margin-top: 0%;
+  }
+
+  .user-navbar.burger{
+    grid-template-columns: 1fr;
+    box-sizing: border-box;
+    padding: 0.85rem 0 0 0.5rem;
+  }
+
+  .burger-menu{
+    display: none;
+    transition: 0.2s ease;
+    grid-template-columns: 1fr;
+    -webkit-transition: 0.1s ease;
+    -moz-transition: 0.2s ease;
+    -ms-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    animation: dropdown 1s ease-in forwards;
+    -webkit-animation: dropdown 1s ease-in forwards;
+}
+
+  @keyframes dropdown {
+    from{
+      opacity: 0;
+    }
+    to{
+      opacity: 1;
+    }
+  }
+
+  .burger-menu.dropped{
+    display: grid;
+    transition: 0.2s ease;
+    margin-right: 1.5%;
   }
 }
 
+
+
 @media only screen and (max-width: 450px){
-  .left-link{
-    font-size: 3.8vw !important;
-  }
 
   .home-left-container{
     padding: 1rem;
@@ -234,5 +263,10 @@
     border-width: 5px 5px 5px 5px;
   }
 
+  .orderby-buttons-container{
+    width: 100%;
+    padding: 0  0 0 12.5%;
+
+  }
 
 }

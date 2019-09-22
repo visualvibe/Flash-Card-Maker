@@ -24,7 +24,10 @@ class Profile extends Component{
         activeIndex: 0,
         showInfo: false,
         activeCard: 0,
-        toggleEdit: false
+        toggleEdit: false,
+        width: 0,
+        isBurgerActive: false
+       
       }
   }
 
@@ -38,10 +41,13 @@ class Profile extends Component{
     }
   }
 
+  //Resets some of the state to default when moving from component to another
   componentWillReceiveProps(){
     this.setState({
       searchCard: '',
-      orderBy: 0
+      orderBy: 0,
+      showInfo: false,
+      activeCard: 0
     })
   }
 
@@ -52,12 +58,28 @@ class Profile extends Component{
       this.props.getCards(this.props.user_id)
     } 
   }
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  
+  updateWindowDimensions = () =>{
+    this.setState({ width: window.innerWidth});
+  }
   
 
+  //Toggles the show info button on flashcard
   showInfo = (e, i) =>{
-    console.log(this.state.activeCard)
-    console.log(this.state.showInfo)
+    e.preventDefault()
+    if(this.state.activeCard > 0 && this.state.showInfo === true){
+      this.setState({
+        activeCard: i
+      })
+    }
     this.setState({
       showInfo: !this.state.showInfo,
       activeCard: i
@@ -92,8 +114,6 @@ class Profile extends Component{
   //Handles the order by newest button
   orderByNewest = (e) =>{
     e.preventDefault()
-    console.log("yeet")
-
     this.setState({
       orderBy: 0,
       searchCard: '',
@@ -125,7 +145,12 @@ class Profile extends Component{
     })
   }
 
-
+  //Toggles burger manu{}
+  toggleBurger = (e) =>{
+    this.setState({
+      isBurgerActive: !this.state.isBurgerActive
+    })
+  }
   render(){
     //Filters card when user inputs value into search box
     let filteredCards = this.props.cards.filter((card) => {
@@ -141,7 +166,7 @@ class Profile extends Component{
               <div className="profile-left-container-header">
                 <h1 id="user-button" style={{fontFamily: 'Manjari, sans-serif', fontWeight: 'bold'}}>{this.props.username}</h1>
               </div>
-              <UserNavBar x={this.props.match.url}/>
+              <UserNavBar x={this.props.match.url} width={this.state.width} isBurgerActive={this.state.isBurgerActive} toggleBurger={this.toggleBurger} />
           </div>
           <div className="container profile-right-container">
               <Switch>
@@ -173,7 +198,8 @@ class Profile extends Component{
                   showInfo={this.showInfo}
                   showInfoState={this.state.showInfo}
                   activeCard={this.state.activeCard}
-                  showToggleEdit={this.state.toggleEdit} /> } />
+                  showToggleEdit={this.state.toggleEdit}
+                  numQuestions={this.props.numQuestions} /> } />
                 <Route 
                   path={`${this.props.match.path}/study/flashcards/`} 
                   render={(props) => <ViewStudyCards {...props} 
@@ -203,7 +229,12 @@ class Profile extends Component{
                   orderByFavorite={this.orderByFavorite}
                   orderByNewest={this.orderByNewest}
                   orderByOldest={this.orderByOldest}
-                  activeIndex={this.state.activeIndex} /> } />
+                  activeIndex={this.state.activeIndex}
+                  showInfo={this.showInfo}
+                  showInfoState={this.state.showInfo}
+                  activeCard={this.state.activeCard}
+                  showToggleEdit={this.state.toggleEdit}
+                  numQuestions={this.props.numQuestions} /> } />
                 <Route 
                   path={`${this.props.match.path}/quiz/flashcard/:card_id/`} 
                   render={(props) => <QuizCard {...props} 
@@ -232,7 +263,8 @@ const mapStateToProps = state =>({
   user_id: state.auth.user_id,
   username: state.auth.username,
   isLoading: state.auth.isLoading,
-  token: state.auth.token
+  token: state.auth.token,
+  numQuestions: state.cards.cards.numQuestions
 })
 
 export default connect(mapStateToProps, {getCards, 

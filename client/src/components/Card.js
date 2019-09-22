@@ -12,7 +12,7 @@ const Card = ({cards, removeCard, getState,
     orderByFavorite, orderByNewest,
     orderByOldest, activeIndex,
     showInfo, showInfoState,
-    activeCard, showToggleEdit }) =>{
+    activeCard, showToggleEdit}) =>{
 
   const flashcardList = cards.map(card => {
     let date = card.date_created.split('T')
@@ -21,9 +21,9 @@ const Card = ({cards, removeCard, getState,
       <div className="flashcard-header">
         <div onClick={(e) =>{makeFavorite(e, card.set_id)}} style={{cursor:'pointer'}} className={card.isFavorite == 1 ? 'star yellow' : 'star'}>&#9733;</div>
         <div className="flashcard-header-right">
-          {console.log(card.set_id)}
           <div className={showInfoState && activeCard === card.set_id ? 'flashcard-header-right-content show' : 'flashcard-header-right-content'}>
             <span>Date created: {date[0]}</span>
+            <span style={{display: 'block'}}>Total questions: {card.numQuestions}</span>
           </div>
           <img onClick={(e)=>{showInfo(e, card.set_id)}} id="xxx" src={info} alt=''></img>
         </div>

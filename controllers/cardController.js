@@ -159,7 +159,7 @@ module.exports = function(app){
 
    var user_id = req.body.user_id
 
-  let sql = "SELECT * FROM cardset WHERE cardset.user_id = ? ORDER BY date_created desc"
+  let sql = "SELECT c.*, count(q.set_id) as numQuestions FROM cardset c left join question q on c.set_id = q.set_id WHERE c.user_id = ? group by c.title ORDER BY c.date_created desc"
   db.query(sql, user_id, (err, data) =>{
    if(err) throw err
    res.json(data)

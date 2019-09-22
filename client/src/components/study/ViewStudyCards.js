@@ -17,12 +17,12 @@ const ViewStudyCards = ({makeFavorite, cards, x, history, handleSearch, orderByF
       <div className="flashcard study" >
       <div className="flashcard-header">
           <div onClick={(e) =>{makeFavorite(e, card.set_id)}} style={{cursor:'pointer'}} className={card.isFavorite == 1 ? 'star yellow' : 'star'}>&#9733;</div>
-          <div className="flashcard-header-right">
-            {console.log(card.set_id)}
+          <div onClick={(e)=>{showInfo(e, card.set_id)}} className="flashcard-header-right">
             <div className={showInfoState && activeCard === card.set_id ? 'flashcard-header-right-content show' : 'flashcard-header-right-content'}>
               <span>Date created: {date[0]}</span>
+              <span style={{display: 'block'}}>Total questions: {card.numQuestions}</span>
             </div>
-            <img onClick={(e)=>{showInfo(e, card.set_id)}} id="xxx" src={info} alt=''></img>
+            <img id="xxx" src={info} alt=''></img>
           </div>
         </div>
         <div className="flashcard-title">

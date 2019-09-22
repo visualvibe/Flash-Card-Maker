@@ -61,7 +61,7 @@ h1{
   box-shadow: 1px 1px 5px grey;
   border-radius: 10px;
   min-width: 450px;
-  width: 40%;
+  width: 25%;
   z-index: 26;
   padding-bottom: 3rem;
   -webkit-border-radius: 10px;
@@ -124,7 +124,7 @@ h1{
   text-align: center;
   max-height: 98px;
   border-radius: 5px 10px 0 0;
-  box-shadow: 1px 3px 8px darkgrey;
+  box-shadow: none;
   -webkit-border-radius: 5px 10px 0 0;
   -moz-border-radius: 5px 10px 0 0;
   -ms-border-radius: 5px 10px 0 0;
@@ -170,19 +170,23 @@ h1{
 }
 .header{
   height: 60px;
-  border-top: 5px #0c203d solid;
+  border-top: 5px #13305c solid;
   background: white;
   z-index: 25;
+}
+
+input:focus{
+  background: white;
 }
 
 .header-text{
   padding: 0.9rem;
   padding-left: 0.9%;
   font-size: 1.6rem;
-  width: 11.62%;
-  border-right: 5px #0c203d solid;
-  border-left: 5px #0c203d solid;
-  color: #0c203d;
+  width: 11.65%;
+  border-right: 5px #13305c solid;
+  border-left: 5px #13305c solid;
+  color: #13305c;
   background: url('./images/right.png');
   z-index: 255;
 
@@ -203,7 +207,7 @@ h1{
 
 .profile-left-container, .home-left-container{
   text-align: center;
-  background: #0c203d;
+  background: #13305c;
   z-index: 255;
 }
 
@@ -235,13 +239,17 @@ h1{
   padding-left: 8%;
   background: red;
   color: white !important;
-  transition: 0.2s ease-in;
+  transition: 0.1s ease-in;
+  -webkit-transition: 0.1s ease-in;
+  -moz-transition: 0.1s ease-in;
+  -ms-transition: 0.1s ease-in;
+  -o-transition: 0.1s ease-in;
 }
 
 .home-buttons-container button:hover,
 .left-link:hover{
-  font-size: 1.5rem;
-  text-shadow: 1px 5px 15px black;
+  font-size: 1.45rem;
+  text-shadow: 1px 1px 5px black;
 }
 .active{
   color:  white !important;
@@ -324,15 +332,24 @@ h1{
 .container-header{
   padding-left: 3.8rem;
   margin-bottom: 5%;
-  line-height: 15px;
+  line-height: 19px;
   min-height: 62px;
   margin-bottom: 10%;
-  background: #0c203d;
+  background: white;
+  color: black;
+  box-shadow: 1px 1px 15px lightgrey;
 }
-
+.container-header h1{
+  color: #0c203d;
+}
 .container-header.profile{
   display: grid;
   grid-template-columns: 1fr 1.2fr;
+  background: white;
+  box-shadow: 1px 1px 15px lightgrey;
+}
+.container-header.profile h1{
+  color: #0c203d;
 }
 /*Container Middle Header  */
 .container-middle-header{
@@ -360,9 +377,11 @@ h1{
 }
 .search-input:focus{
   background: white;
+  color: black;
+  box-shadow: 0px 0px 3px darkgrey;
 }
 .search-input::placeholder{
-  color: black;
+  color: grey;
   font-family: 'Roboto', sans-serif;
   text-align: center;
 }
@@ -512,7 +531,8 @@ h1{
 }
 
 .editable.show{
-  border: 1px lightblue dotted;
+  border: 3px lightblue dotted;
+  border-width: 3px 0 3px 0;
 }
 
 .flashcard label{
