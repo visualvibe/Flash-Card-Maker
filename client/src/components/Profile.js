@@ -13,6 +13,8 @@ import { makeFavorite, getCards,
   deleteCard, handleEditTitle, 
   handleEditSubject, orderByFavorite, orderByOldest } from '../actions/CardActions'
 import UserNavBar from './UserNavBar'
+import DNDGame from './dnd/DNDGame'
+import ViewDnDCards from './dnd/ViewDnDCards';
 
 class Profile extends Component{
   constructor(props){
@@ -154,9 +156,10 @@ class Profile extends Component{
   render(){
     //Filters card when user inputs value into search box
     let filteredCards = this.props.cards.filter((card) => {
-      //Joins carc.title & card.subject into array
-      var c = [card.title.toLowerCase(), card.subject.toLowerCase()]
-      return c[0].includes(this.state.searchCard.toLowerCase())
+      //Joins card.title & card.subject into array
+      let c = [card.title.toLowerCase(), card.subject.toLowerCase()]
+      let c2 = c[0].concat(c[1])
+      return c2.includes(this.state.searchCard.toLowerCase())
     })
     if (this.props.username === this.props.match.params.username) {
     return(
@@ -205,7 +208,6 @@ class Profile extends Component{
                   render={(props) => <ViewStudyCards {...props} 
                   cards={this.state.orderBy === 0 ? filteredCards : this.state.orderedCards} 
                   x={this.props.match.url}
-                  history={this.props.history}
                   handleSearch={this.handleSearch}
                   makeFavorite={this.handleMakeFavorite}
                   orderByFavorite={this.orderByFavorite}
@@ -223,7 +225,6 @@ class Profile extends Component{
                   render={(props) => <ViewQuizCards {...props} 
                   cards={this.state.orderBy === 0 ? filteredCards : this.state.orderedCards} 
                   x={this.props.match.url}
-                  history={this.props.history}
                   handleSearch={this.handleSearch}
                   makeFavorite={this.handleMakeFavorite} 
                   orderByFavorite={this.orderByFavorite}
@@ -238,6 +239,27 @@ class Profile extends Component{
                 <Route 
                   path={`${this.props.match.path}/quiz/flashcard/:card_id/`} 
                   render={(props) => <QuizCard {...props} 
+                  x={this.props.match.url} /> } />
+                <Route 
+                  path={`${this.props.match.path}/dnd/flashcards/`} 
+                  render={(props) => <ViewDnDCards {...props} 
+                  cards={this.state.orderBy === 0 ? filteredCards : this.state.orderedCards} 
+                  x={this.props.match.url}
+                  history={this.props.history}
+                  handleSearch={this.handleSearch}
+                  makeFavorite={this.handleMakeFavorite} 
+                  orderByFavorite={this.orderByFavorite}
+                  orderByNewest={this.orderByNewest}
+                  orderByOldest={this.orderByOldest}
+                  activeIndex={this.state.activeIndex}
+                  showInfo={this.showInfo}
+                  showInfoState={this.state.showInfo}
+                  activeCard={this.state.activeCard}
+                  showToggleEdit={this.state.toggleEdit}
+                  numQuestions={this.props.numQuestions} /> } />
+                <Route 
+                  path={`${this.props.match.path}/dnd/flashcard/:card_id/`} 
+                  render={(props) => <DNDGame {...props} 
                   x={this.props.match.url} /> } />
               </Switch>
           </div>

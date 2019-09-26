@@ -20,21 +20,21 @@ cardController(app);
 
 
 // Express will serve up production assets
-app.use(express.static(__dirname + '/client/build'))
+app.use('/', express.static(__dirname + '/client/build', { redirect: false }))
 
   // Express will serve up the front-end index.html file if it doesn't recognize the route
   app.get("*", (req, res) =>
-    res.sendFile(__dirname + '/build/index.html')
+    res.sendFile(path.resolve(__dirname + '/build/index.html'))
   );
 
 
   app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", req.headers.origin);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS");
-    res.header("Access-Control-Allow-Credentials", true);
-    next();
-  });
+    res.header("Access-Control-Allow-Origin", req.headers.origin)
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+    res.header("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS")
+    res.header("Access-Control-Allow-Credentials", true)
+    next()
+  })
 
 
 app.listen('5001', () =>{

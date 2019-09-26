@@ -9,6 +9,7 @@
     "jwt-decode": "^2.2.0",
     "localstorage": "^1.0.1",
     "react": "^16.9.0",
+    "react-beautiful-dnd": "^11.0.5",
     "react-contenteditable": "^3.3.2",
     "react-dialog": "^1.0.2",
     "react-dom": "^16.9.0",

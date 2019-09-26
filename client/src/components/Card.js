@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import ContentEditable from "react-contenteditable"
 import { withRouter } from 'react-router-dom';
 import SearchBox from './SearchBox'
-import info from '../images/info.svg'
+import info from '../images/info.png'
 
 const Card = ({cards, removeCard, getState,
     toggleEditable, handleEditTitle,

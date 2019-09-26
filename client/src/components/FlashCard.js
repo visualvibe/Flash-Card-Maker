@@ -3,11 +3,15 @@ import Question from './Question'
 import AddQuestion from './AddQuestion'
 import { connect } from 'react-redux';
 import { getQuestions, getCardInfo, toggleEdit, addQuestion, removeQuestion, handleEditQuestion, handleEditAnswer} from '../actions/QuestionActions'
+import SearchBox from './SearchBox'
 
 class FlashCard extends Component{
 
   state={
-    isLoading: true
+    isLoading: true,
+    activeCard: 0,
+    toggleEdit: false,
+    searchCard: ''
   }
 
   componentDidUpdate(prev){
@@ -41,13 +45,30 @@ class FlashCard extends Component{
 
 
  //Toggles the edit button for question/answer edit
-  toggleEditable = () =>{
+  toggleEditable = (e, i) =>{
+    e.preventDefault()
+    this.setState({
+      activeCard: i,
+      toggleEdit: !this.state.toggleEdit    
+    })
     this.props.toggleEdit()
+  }
+
+  //Handles search input
+  handleSearch = (e) =>{
+    this.setState({
+      searchCard: e.target.value
+    })
   }
 
 
   render(){
-    console.log(this.state.isLoading)
+    let filteredQuestions = this.props.questions.filter((question) => {
+      //Joins questio.q_vlaue & question.q_answer into array
+      let c = [question.q_value.toLowerCase(), question.q_answer.toLowerCase()]
+      let c2 = c[0].concat(c[1])
+      return c2.includes(this.state.searchCard.toLowerCase())
+    })
     if(this.state.isLoading == true) {
       return(
         <div className="loading-container">
@@ -58,19 +79,22 @@ class FlashCard extends Component{
     else{
       return(
         <div className="container questions">
-          <div className="container-header">
+          <div className="container-header profile">
             <h1 style={{fontFamily: 'Manjari', padding: '0.4rem'}}><span style={{ color: '#9c9996', fontSize: '1rem' }}> Title</span> {this.props.title} <span style={{ color: '#9c9996', fontSize: '1rem' }}> Subject</span> {this.props.subject} <span style={{ color: '#9c9996', fontSize: '1rem' }}> Questions</span> {this.props.questions.length}</h1>
+            <div className="container-middle-header">
+              <SearchBox handleSearch={this.handleSearch} question={true}/>
+            </div>
           </div>
-          <div className="question-main-container">
-            <Question questions={this.props.questions} 
+            <AddQuestion addQuestion={this.props.addQuestion} set_id={this.props.set_id}/>
+            <Question questions={filteredQuestions} 
             removeQuestion={this.props.removeQuestion} 
             handleEditAnswer={this.props.handleEditAnswer} 
             handleEditQuestion={this.props.handleEditQuestion}
             getState={this.props.editable}
             toggleEditable={this.toggleEditable}
-            test={this.test} />
-            <AddQuestion addQuestion={this.props.addQuestion} set_id={this.props.set_id}/>
-          </div>
+            test={this.test} activeCard={this.state.activeCard}
+            showToggleEdit={this.state.toggleEdit} />
+
         </div>
       )
     }

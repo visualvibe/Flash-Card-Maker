@@ -3,9 +3,9 @@ import {NavLink} from 'react-router-dom'
 import ContentEditable from "react-contenteditable"
 import { withRouter } from 'react-router-dom'
 import SearchBox from '../SearchBox'
-import info from '../../images/info.svg'
+import info from '../../images/info.png'
 
-const ViewStudyCards = ({makeFavorite, cards, x, history, handleSearch, orderByFavorite, orderByNewest,
+const ViewStudyCards = ({makeFavorite, cards, x, handleSearch, orderByFavorite, orderByNewest,
   orderByOldest, activeIndex, showInfo, showInfoState, activeCard}) =>{
 
   const flashcardList = cards.map(card => {
@@ -57,7 +57,7 @@ const ViewStudyCards = ({makeFavorite, cards, x, history, handleSearch, orderByF
     </div>
   
     <div className="view-quiz-header">
-     <h1>Pick a Set To Study From</h1>
+     <h1>Pick a set to study from</h1>
     </div>
     <div className="orderby-buttons-container study">
       <span>Order By</span>

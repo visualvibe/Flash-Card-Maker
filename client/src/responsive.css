@@ -31,7 +31,7 @@
  .header-text{
   width: 100%;
   padding: 0.3rem;
-  padding-left: 0.5rem;
+  padding-left: 0.7rem;
  }
 
  .header{
@@ -112,18 +112,33 @@
  }
  
 .question.study{
-
+ 
   width: 100%;
   box-sizing: border-box;
   padding: 0 1% 0 1%;
 }
 
-
+  .question-question.studycard{
+    justify-self: center;
+    width: 100%;
+  }
 
 
 }
 
 @media only screen and (max-width: 1053px){
+
+  .question{
+    width: 100%;
+    transform: scale(0.9)  ;
+    -webkit-transform: scale(0.9)  ;
+    -moz-transform: scale(0.9)  ;
+    -ms-transform: scale(0.9)  ;
+    -o-transform: scale(0.9)  ;
+}
+  .quizgame-buttons-container{
+    width: 94%;
+  }
  .flashcard-container{
   grid-template-columns: 1fr;
   width: 85%;
@@ -186,6 +201,16 @@
 }
 
 @media only screen and (max-width: 720px){
+  .view-quiz-header h1{
+    font-size: 4.5vw;
+  }
+  .view-quiz-header p{
+    font-size: 3.8vw;
+  }
+  .addquestion-container{
+    margin-top: 6%;
+    width: 94%;
+  }
   .view-quiz-header{
     margin-bottom: 0%;
   }
@@ -255,6 +280,10 @@
 
 
 @media only screen and (max-width: 450px){
+  .quiz-score-container{
+    width: 100%;
+    font-size: 8vw;
+  }
 
   .home-left-container{
     padding: 1rem;

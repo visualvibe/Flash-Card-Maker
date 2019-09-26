@@ -29,6 +29,12 @@ const UserNavBar = ({x, width, isBurgerActive, toggleBurger}) =>{
       }}>
         Quiz
       </NavLink>
+      <NavLink id="dnd-button" className="left-link" to={{
+        pathname:  x + '/dnd/flashcards/'
+      }}>
+        Drag n Drop Game
+      </NavLink>
+      
       <Logout />
     </div>
     )
