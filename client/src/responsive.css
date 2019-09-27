@@ -197,7 +197,38 @@
   .orderby-buttons-container.profile{
     margin-top: 7%;
   }
+  .user-navbar.burger{
+    grid-template-columns: 1fr;
+    box-sizing: border-box;
+    padding: 0.85rem 0 0 0.5rem;
+  }
 
+  .burger-menu{
+    display: none;
+    transition: 0.2s ease;
+    grid-template-columns: 1fr;
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease;
+    -ms-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    animation: dropdown 1s ease-in forwards;
+    -webkit-animation: dropdown 1s ease-in forwards;
+}
+
+  @keyframes dropdown {
+    from{
+      opacity: 0;
+    }
+    to{
+      opacity: 1;
+    }
+  }
+
+  .burger-menu.dropped{
+    display: grid;
+    transition: 0.2s ease;
+    margin-right: 1.5%;
+  }
 }
 
 @media only screen and (max-width: 720px){
@@ -241,39 +272,6 @@
 
   .orderby-buttons-container.studyquiz{
     margin-top: 0%;
-  }
-
-  .user-navbar.burger{
-    grid-template-columns: 1fr;
-    box-sizing: border-box;
-    padding: 0.85rem 0 0 0.5rem;
-  }
-
-  .burger-menu{
-    display: none;
-    transition: 0.2s ease;
-    grid-template-columns: 1fr;
-    -webkit-transition: 0.1s ease;
-    -moz-transition: 0.2s ease;
-    -ms-transition: 0.2s ease;
-    -o-transition: 0.2s ease;
-    animation: dropdown 1s ease-in forwards;
-    -webkit-animation: dropdown 1s ease-in forwards;
-}
-
-  @keyframes dropdown {
-    from{
-      opacity: 0;
-    }
-    to{
-      opacity: 1;
-    }
-  }
-
-  .burger-menu.dropped{
-    display: grid;
-    transition: 0.2s ease;
-    margin-right: 1.5%;
   }
 }
 

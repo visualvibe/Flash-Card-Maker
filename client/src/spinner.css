@@ -99,26 +99,34 @@
 /*Modal styles */
 .modal{
   background: white;
-  border: 2px #0c203d solid;
-  border-radius: 5px;
+  border-radius: 8px;
   margin: 0 auto;
   color: black;
-  width: 40rem; height: 20rem;
+  width: 40rem;
+  height: 20rem;
   font-size: 2rem;
   animation: fadeIn 0.3s ease-in;
   box-shadow: 2px 2px 7px darkgrey;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 4fr 1fr;
+  z-index: 125;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 
 .modal-header{
   background: #0c203d;
-  border-radius: 5px;
+  border-radius: 8px 8px 0 0;
   color: white;
   text-align: center;
   padding: 1rem;
-
+  -webkit-border-radius: 8px 8px 0 0;
+  -moz-border-radius: 8px 8px 0 0;
+  -ms-border-radius: 8px 8px 0 0;
+  -o-border-radius: 8px 8px 0 0;
 }
 
 .modal-content{
@@ -183,5 +191,44 @@
   font-size: 1.5rem;
   display: block;
   text-align: center;
+}
+
+.modal.endgame-dnd, .modal.startgame-dnd{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 255;
+  margin-top: -161px;
+  margin-left: -198px;
+}
+
+.modal.startgame-dnd{
+  width: 290px;
+  height: 300px;
+  left: 60%;
+  border: 1px #0c203d solid;
+  border-width: 5px 0 5px 0;
+}
+
+.modal.startgame-dnd .modal-content{
+  align-self: center;
+  margin-bottom: 7%;
+}
+.modal-content label{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+}
+.modal.startgame-dnd .modal-header{
+  background: none;
+  color: #0c203d;
+}
+.modal.startgame-dnd .modal-buttons{
+  justify-self: end;
+  grid-template-columns: 1fr 1fr;
+}
+.modal.startgame-dnd .modal-buttons button{
+  background: none;
+  width: 60px;
+  color: #0c203d;
 }
 /* End Modal Styles */

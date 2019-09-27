@@ -114,6 +114,7 @@ class QuizCard extends Component {
     }, 3000);
   }
 
+  //Handles play again button
   handlePlayAgain = (e) =>{
     e.preventDefault()
     this.props.history.replace(this.props.x + '/quiz/flashcards/')
@@ -121,7 +122,7 @@ class QuizCard extends Component {
   } 
 
   render(){
-    if(this.props.questions.length != 0){
+    if(this.props.questions.length >= 4){
       if (this.props.questions[0].set_id == this.props.match.params.card_id) {
       return(
       <div className="container questions">

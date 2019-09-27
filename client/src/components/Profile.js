@@ -15,6 +15,7 @@ import { makeFavorite, getCards,
 import UserNavBar from './UserNavBar'
 import DNDGame from './dnd/DNDGame'
 import ViewDnDCards from './dnd/ViewDnDCards';
+import StartDNDModal from './modals/StartDNDModal'
 
 class Profile extends Component{
   constructor(props){
@@ -28,8 +29,10 @@ class Profile extends Component{
         activeCard: 0,
         toggleEdit: false,
         width: 0,
-        isBurgerActive: false
-       
+        isBurgerActive: false,
+        isDndModalOpen: false,
+        card_id: '',
+        valueTimer: 30
       }
   }
 
@@ -47,7 +50,6 @@ class Profile extends Component{
   componentWillReceiveProps(){
     this.setState({
       searchCard: '',
-      orderBy: 0,
       showInfo: false,
       activeCard: 0
     })
@@ -147,10 +149,43 @@ class Profile extends Component{
     })
   }
 
-  //Toggles burger manu{}
+  //Toggles burger menu
   toggleBurger = (e) =>{
     this.setState({
       isBurgerActive: !this.state.isBurgerActive
+    })
+  }
+
+  //Opens Modal
+  openModal = (e, id) =>{
+    this.setState({
+      isDndModalOpen: true,
+      card_id: id
+    })
+  }
+
+  //Handles play button
+  handlePlay = () =>{
+    this.setState({
+      isDndModalOpen: false
+    })
+    this.props.history.push({
+      pathname: this.props.match.url + '/dnd/flashcard/' + this.state.card_id,
+      state: {timerValue: this.state.valueTimer}
+    })
+  }
+
+  //Sets time for match game
+  handleTimer = (e) =>{
+    this.setState({
+      valueTimer: e.target.value
+    })
+  }
+
+  //Handles cancel button
+  handleCancel = (e) =>{
+    this.setState({
+      isDndModalOpen: false
     })
   }
   render(){
@@ -172,6 +207,9 @@ class Profile extends Component{
               <UserNavBar x={this.props.match.url} width={this.state.width} isBurgerActive={this.state.isBurgerActive} toggleBurger={this.toggleBurger} />
           </div>
           <div className="container profile-right-container">
+            {this.state.isDndModalOpen == true &&(
+              <StartDNDModal handleCancel={this.handleCancel} handlePlay={this.handlePlay} handleTimer={this.handleTimer} valueTimer={this.state.valueTimer} />
+            )}
               <Switch>
                 <Route 
                   path={`${this.props.match.path}/edit/flashcard/:card_id`} 
@@ -256,7 +294,8 @@ class Profile extends Component{
                   showInfoState={this.state.showInfo}
                   activeCard={this.state.activeCard}
                   showToggleEdit={this.state.toggleEdit}
-                  numQuestions={this.props.numQuestions} /> } />
+                  numQuestions={this.props.numQuestions}
+                  openModal={this.openModal} /> } />
                 <Route 
                   path={`${this.props.match.path}/dnd/flashcard/:card_id/`} 
                   render={(props) => <DNDGame {...props} 

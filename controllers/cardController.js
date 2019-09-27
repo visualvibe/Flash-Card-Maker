@@ -205,7 +205,7 @@ module.exports = function(app){
    app.post('/api/cards/orderbyfavorite', (req, res) =>{
       var set_id = req.body.user_id
 
-      let sql = "SELECT * from cardset where user_id = ? order by isFavorite desc"
+      let sql = "SELECT c.*, count(q.set_id) as numQuestions FROM cardset c left join question q on c.set_id = q.set_id WHERE c.user_id = ? group by c.title ORDER BY c.isFavorite desc"
       db.query(sql, set_id, (err, data) =>{
          if(err) throw err
          res.json(data)
@@ -217,7 +217,7 @@ module.exports = function(app){
    app.post('/api/cards/orderbyoldest', (req, res) =>{
       var set_id = req.body.user_id
 
-      let sql = "SELECT * from cardset where user_id = ? order by date_created asc"
+      let sql = "SELECT c.*, count(q.set_id) as numQuestions FROM cardset c left join question q on c.set_id = q.set_id WHERE c.user_id = ? group by c.title ORDER BY c.date_created asc"
       db.query(sql, set_id, (err, data) =>{
          if(err) throw err
          res.json(data)

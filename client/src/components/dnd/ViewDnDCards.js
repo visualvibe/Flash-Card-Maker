@@ -6,14 +6,12 @@ import SearchBox from '../SearchBox'
 import info from '../../images/info.png'
 
 const ViewDnDCards = ({makeFavorite, cards, x, handleSearch, orderByFavorite, orderByNewest,
-  orderByOldest, activeIndex, showInfo, showInfoState, activeCard}) =>{
+  orderByOldest, activeIndex, showInfo, showInfoState, activeCard, openModal}) =>{
 
   const flashcardList = cards.map(card => {
     let date = card.date_created.split('T')
     return(
-      <NavLink to={{
-        pathname: x + '/dnd/flashcard/' + card.set_id,
-        }} key={card.set_id} className="xx">
+      <NavLink onClick={(e)=> {openModal(e, card.set_id)}} key={card.set_id} className="xx">
       <div className="flashcard study" >
       <div className="flashcard-header">
           <div onClick={(e) =>{makeFavorite(e, card.set_id)}} style={{cursor:'pointer'}} className={card.isFavorite == 1 ? 'star yellow' : 'star'}>&#9733;</div>
@@ -50,7 +48,7 @@ const ViewDnDCards = ({makeFavorite, cards, x, handleSearch, orderByFavorite, or
   return(
    <div className="container edit-card">
     <div className="container-header profile">
-      <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Study</span>Your Flashcards </h1>
+      <h1><span style={{ color: '#9c9996', fontSize: '1rem', wordSpacing: '10px' }}> Match</span>Your Flashcards </h1>
       <div className="container-middle-header">
         <SearchBox handleSearch={handleSearch}/>
      </div>
@@ -58,8 +56,9 @@ const ViewDnDCards = ({makeFavorite, cards, x, handleSearch, orderByFavorite, or
   
     <div className="view-quiz-header">
      <h1>Pick a set to play a drag and drop game</h1>
+     <p>&#8681; Only flashcard sets with at least <strong>6 or more </strong> questions are playable!</p>
     </div>
-    <div className="orderby-buttons-container study">
+    <div className="orderby-buttons-container studyquiz">
       <span>Order By</span>
       <button className={activeIndex === 0 ? 'activex' : '' } onClick={(e) => {orderByNewest(e)}}>Newest</button>
       <button className={activeIndex === 1 ? 'activex' : '' }  onClick={(e) => {orderByOldest(e)}}>Oldest</button>

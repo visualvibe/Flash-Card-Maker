@@ -6,7 +6,7 @@ import exit from '../images/x.png'
 
 const UserNavBar = ({x, width, isBurgerActive, toggleBurger}) =>{
   
-  if(width >= 720){
+  if(width >= 1053){
     return(
     <div className={"user-navbar"}>
       <NavLink id="addcard-button" className="left-link" to={{
@@ -32,7 +32,7 @@ const UserNavBar = ({x, width, isBurgerActive, toggleBurger}) =>{
       <NavLink id="dnd-button" className="left-link" to={{
         pathname:  x + '/dnd/flashcards/'
       }}>
-        Drag n Drop Game
+        Match Game
       </NavLink>
       
       <Logout />
@@ -64,6 +64,11 @@ const UserNavBar = ({x, width, isBurgerActive, toggleBurger}) =>{
             pathname:  x + '/quiz/flashcards/'
           }}>
             Quiz
+          </NavLink>
+          <NavLink id="dnd-button" className="left-link" to={{
+            pathname:  x + '/dnd/flashcards/'
+          }}>
+            Match Game
           </NavLink>
           <Logout />
         </div>
